@@ -7,8 +7,6 @@ package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.AddressableLED;
-import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -25,16 +23,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
-    AddressableLED m_led = new AddressableLED(0);
-    AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(50);
-    m_led.setLength(m_ledBuffer.getLength());
-    m_led.start();
-
-    for (var i = 0; i < m_ledBuffer.getLength(); i++) {
-      int hue = (0 + (i * 180 / m_ledBuffer.getLength())) % 180;
-      m_ledBuffer.setHSV(i, hue, 255, 128);
-    }
-    m_led.setData(m_ledBuffer);
 
     // UsbCamera camera = CameraServer.startAutomaticCapture();
     // camera.setResolution(18, 14);
