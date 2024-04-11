@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.44,
+        "y": 6.58
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.2210290528982735,
+        "y": 6.550121507310895
+      },
+      "isLocked": false,
+      "linkedName": "Tomar nota AMP a 45g AUTO AMP FIRST"
+    },
+    {
+      "anchor": {
+        "x": 1.73,
+        "y": 6.28
+      },
+      "prevControl": {
+        "x": 1.903627546240308,
+        "y": 6.357158766103209
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "S2 BLUE AUTO AMP FIRST"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "Rise Intake",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "RISE_INTAKE"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 1.5,
+    "maxAcceleration": 1.0,
+    "maxAngularVelocity": 200.0,
+    "maxAngularAcceleration": 200.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 17.48,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Para auto 4 notas AMP primero",
+  "previewStartingState": {
+    "rotation": 45.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

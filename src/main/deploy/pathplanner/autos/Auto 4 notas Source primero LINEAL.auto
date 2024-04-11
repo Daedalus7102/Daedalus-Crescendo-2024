@@ -1,0 +1,73 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.3,
+      "y": 5.55
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Ida por nota Source desde inicio en medio SOURCE FIRST"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Regreso de nota Source hacia shoot S4 SOURCE FIRST"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "SHOOT"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Ida por nota M desde S4 BLUE SOURCE FIRST"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Regreso de nota medio hacia ahoot S2 BLUE SOURCE FIRST"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "SHOOT"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Ida por nota AMP desde S4 BLUE SOURCE FIRST"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Regreso de nota AMP hacia shoot S2 SOURCE FIRST"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "SHOOT"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

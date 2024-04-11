@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.88,
+        "y": 6.11
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.0072792206135786,
+        "y": 6.237279220613579
+      },
+      "isLocked": false,
+      "linkedName": "S2 BLUE AUTO SOURCE FIRST"
+    },
+    {
+      "anchor": {
+        "x": 2.4858574572640477,
+        "y": 6.590505666560466
+      },
+      "prevControl": {
+        "x": 2.3422670123370226,
+        "y": 6.466079848798801
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Tomar nota AMP a 45g AUTO SOURCE FIRST"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "Lower Intake",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "LOWER_INTAKE"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 1.5,
+    "maxAcceleration": 0.6,
+    "maxAngularVelocity": 200.0,
+    "maxAngularAcceleration": 200.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 45.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Para auto 4 notas Source primero",
+  "previewStartingState": {
+    "rotation": 19.49,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

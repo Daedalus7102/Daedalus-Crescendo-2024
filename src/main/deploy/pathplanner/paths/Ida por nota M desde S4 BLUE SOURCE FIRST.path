@@ -1,0 +1,76 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.73,
+        "y": 4.82
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.864350288425444,
+        "y": 4.954350288425444
+      },
+      "isLocked": false,
+      "linkedName": "S4 BLUE AUTO SOURCE FIRST"
+    },
+    {
+      "anchor": {
+        "x": 2.29,
+        "y": 5.27
+      },
+      "prevControl": {
+        "x": 2.1035756391640015,
+        "y": 5.173325506534094
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Tomar nota M -30g"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.9,
+      "rotationDegrees": 23.2,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "Lower Intake",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "LOWER_INTAKE"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 1.0,
+    "maxAcceleration": 0.6,
+    "maxAngularVelocity": 200.0,
+    "maxAngularAcceleration": 200.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 23.2,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Para auto 4 notas Source primero",
+  "previewStartingState": {
+    "rotation": -17.480000000000018,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

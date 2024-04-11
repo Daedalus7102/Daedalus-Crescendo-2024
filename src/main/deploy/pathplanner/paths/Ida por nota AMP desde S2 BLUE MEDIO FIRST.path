@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.88,
+        "y": 6.11
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.094759981296723,
+        "y": 6.256554257643479
+      },
+      "isLocked": false,
+      "linkedName": "S2 BLUE AUTO MEDIO FIRST"
+    },
+    {
+      "anchor": {
+        "x": 2.44,
+        "y": 6.58
+      },
+      "prevControl": {
+        "x": 2.2979639984668836,
+        "y": 6.42532041418311
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Tomar nota AMP a 45g AUTO MEDIO FIRST"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "Lower Intake",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "LOWER_INTAKE"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 0.7,
+    "maxAcceleration": 1.0,
+    "maxAngularVelocity": 200.0,
+    "maxAngularAcceleration": 200.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 45.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Para auto 4 notas Medio primero",
+  "previewStartingState": {
+    "rotation": 19.49,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

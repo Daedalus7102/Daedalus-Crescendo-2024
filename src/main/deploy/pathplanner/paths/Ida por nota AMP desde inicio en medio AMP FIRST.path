@@ -1,0 +1,94 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.35,
+        "y": 5.55
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.8964911686771482,
+        "y": 5.9019195967232925
+      },
+      "isLocked": false,
+      "linkedName": "Inicio medio"
+    },
+    {
+      "anchor": {
+        "x": 2.4448817848915634,
+        "y": 6.583676387831718
+      },
+      "prevControl": {
+        "x": 2.182622895504558,
+        "y": 6.4380045822635354
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Tomar nota AMP a 45g AUTO AMP FIRST"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.4,
+      "rotationDegrees": 18.0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "Para shoot",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 0.2,
+      "constraints": {
+        "maxVelocity": 1.5,
+        "maxAcceleration": 1.0,
+        "maxAngularVelocity": 300.0,
+        "maxAngularAcceleration": 300.0
+      }
+    }
+  ],
+  "eventMarkers": [
+    {
+      "name": "Shoot andThen Lower Intake",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SHOOT"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "LOWER_INTAKE"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 0.7,
+    "maxAcceleration": 1.0,
+    "maxAngularVelocity": 300.0,
+    "maxAngularAcceleration": 300.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 45.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Para auto 4 notas AMP primero",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

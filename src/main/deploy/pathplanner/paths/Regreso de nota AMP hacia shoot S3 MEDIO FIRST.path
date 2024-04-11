@@ -1,0 +1,76 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.44,
+        "y": 6.58
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.1812724441546347,
+        "y": 6.288178047696402
+      },
+      "isLocked": false,
+      "linkedName": "Tomar nota AMP a 45g AUTO MEDIO FIRST"
+    },
+    {
+      "anchor": {
+        "x": 1.891710207863025,
+        "y": 5.55
+      },
+      "prevControl": {
+        "x": 1.8780457385156388,
+        "y": 6.089827085535224
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "S3 BLUE AUTO MEDIO FIRST"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.9,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "Rise Intake",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "RISE_INTAKE"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 0.8,
+    "maxAcceleration": 0.8,
+    "maxAngularVelocity": 200.0,
+    "maxAngularAcceleration": 200.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Para auto 4 notas Medio primero",
+  "previewStartingState": {
+    "rotation": 45.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

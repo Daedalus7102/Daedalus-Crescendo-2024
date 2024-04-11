@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.36,
+        "y": 5.55
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.217864660497506,
+        "y": 5.690703750001593
+      },
+      "isLocked": false,
+      "linkedName": "Tomar nota M 0g"
+    },
+    {
+      "anchor": {
+        "x": 1.88,
+        "y": 6.11
+      },
+      "prevControl": {
+        "x": 1.9605123527153676,
+        "y": 5.949010059133386
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "S2 BLUE AUTO MEDIO FIRST"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "Rise Intake",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "RISE_INTAKE"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 1.5,
+    "maxAcceleration": 1.0,
+    "maxAngularVelocity": 200.0,
+    "maxAngularAcceleration": 200.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 19.49,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Para auto 4 notas Medio primero",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

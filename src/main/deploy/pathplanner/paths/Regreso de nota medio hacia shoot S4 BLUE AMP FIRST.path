@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.294637652859121,
+        "y": 5.825626448940759
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.1763509852175535,
+        "y": 5.6283746700938915
+      },
+      "isLocked": false,
+      "linkedName": "Tomar nota M 30g AUTO AMP FIRST"
+    },
+    {
+      "anchor": {
+        "x": 1.8848809291342778,
+        "y": 4.985625165304831
+      },
+      "prevControl": {
+        "x": 2.0011765497231426,
+        "y": 5.218166191001052
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "S4 BLUE AUTO AMP FIRST"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "Rise Intake",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "RISE_INTAKE"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 2.0,
+    "maxAcceleration": 1.3,
+    "maxAngularVelocity": 200.0,
+    "maxAngularAcceleration": 200.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -19.49000000000001,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Para auto 4 notas AMP primero",
+  "previewStartingState": {
+    "rotation": -23.19999999999999,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}
