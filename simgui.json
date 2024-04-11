@@ -1,0 +1,24 @@
+{
+  "HALProvider": {
+    "Addressable LEDs": {
+      "0": {
+        "columns": 1
+      },
+      "window": {
+        "visible": true
+      }
+    }
+  },
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/Shuffleboard/Autonomous/Autonomous Mode": "String Chooser",
+      "/Shuffleboard/Autonomous/Field": "Field2d",
+      "/Shuffleboard/Chasis/Field": "Field2d",
+      "/SmartDashboard/Auto Mode": "String Chooser"
+    }
+  },
+  "NetworkTables Info": {
+    "visible": true
+  }
+}

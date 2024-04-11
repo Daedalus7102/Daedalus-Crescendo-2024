@@ -26,6 +26,7 @@ import frc.robot.commands.PivotearIntakeAutomatico;
 import frc.robot.subsystems.Chasis;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Leds;
 import frc.robot.utils.PathChooser;
 import frc.robot.utils.ThePaths;
 import frc.robot.subsystems.Climber;
@@ -40,6 +41,7 @@ public class RobotContainer {
   private static final Intake intake = new Intake();
   private static final Climber climber = new Climber();
   private static final Shooter shooter = new Shooter();
+  private static final Leds leds = new Leds();
 
   private static final PS4Controller driveControl = new PS4Controller(0);
   public static final PS5Controller mecanismsControl = new PS5Controller(1);
@@ -128,5 +130,9 @@ public class RobotContainer {
 
   public Intake getIntakeSubsystem() {
     return intake;
+  }
+
+  public Leds getLedsSubsystem() {
+    return leds;
   }
 }
