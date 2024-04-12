@@ -5,15 +5,18 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.units.Time;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.Timer;
 
 import java.util.Random;
 
+
 public class Leds extends SubsystemBase {
   
-  public Leds() {m_led.setLength(m_ledBuffer.getLength()); m_led.start();}
+  public Leds() {m_led.setLength(m_ledBuffer.getLength()); m_led.start(); timer.start();}
 
   // -- CONFIG -- //
   private static final int LENGTH = 25; // La mitad de la cantidad de leds que hay
@@ -21,15 +24,19 @@ public class Leds extends SubsystemBase {
 
   private AddressableLED m_led = new AddressableLED(PORT);
   private AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(LENGTH*2);
+  private Color[] drawBuffer = new Color[LENGTH];
+  private Timer timer = new Timer();
   private Random random = new Random();
 
   // -- EFECTOS -- //
-  private void draw(ColorUtils.RGB[] colors) {
+  private void draw() {
+
     for (int i = 0; i < LENGTH; i++) {
-      m_ledBuffer.setRGB(i, colors[i].r, colors[i].g, colors[i].b);
+      drawBuffer[i] = m_ledBuffer.getLED(i);
     }
+
     for (int i = LENGTH; i < LENGTH*2; i++) {
-      m_ledBuffer.setRGB(i, colors[i-LENGTH].r, colors[i-LENGTH].g, colors[i-LENGTH].b);
+      m_ledBuffer.setLED(i, drawBuffer[i-LENGTH]);
     }
 
   }
@@ -37,8 +44,7 @@ public class Leds extends SubsystemBase {
   private int[] heat = new int[LENGTH];
   private static final int COOLING = 100;
   private static final boolean REVERSE_DIRECTION = false;
-  private ColorUtils.RGB[] blowtorch() {
-    ColorUtils.RGB[] colorBuffer = new ColorUtils.RGB[LENGTH];
+  private void blowtorch() {
     int buf = random.nextInt(250, 280);
     for (int i = 0; i <= random.nextInt(2, 4); i++){
       heat[i] = buf;
@@ -46,7 +52,7 @@ public class Leds extends SubsystemBase {
     }
 
     for( int i = 0; i < LENGTH; i++) {
-      heat[i] = heat[i] - random.nextInt(0, ((COOLING * 10) / LENGTH) + 5); // qsub saturates at zero, this doesn't!
+      heat[i] = heat[i] - random.nextInt(0, ((COOLING * 10) / LENGTH) + 5);
       heat[i] = heat[i] < 0 ? 0 : heat[i];
     }
   
@@ -55,41 +61,54 @@ public class Leds extends SubsystemBase {
     }
   
     for( int j = 0; j < LENGTH; j++) {
-      ColorUtils.RGB color = ColorUtils.heatColor( heat[j]);
+      Color color = ColorUtils.heatColor( heat[j]);
       int pixelnumber;
       if ( REVERSE_DIRECTION ) {
         pixelnumber = (LENGTH-1) - j;
       } else {
         pixelnumber = j;
       }
-      colorBuffer[pixelnumber] = color;
+      m_ledBuffer.setLED(pixelnumber, color);
     }
-    return colorBuffer;
+  }
+
+  private void pulse() {
+    double pos = Math.sin(timer.get() * 15);
+    if (pos >= 0) {
+      for (int i=0; i < LENGTH; i++) {
+        m_ledBuffer.setLED(i, Color.kGreen);
+      }
+    } else {
+      for (int i=0; i < LENGTH; i++) {
+        m_ledBuffer.setLED(i, Color.kBlack);
+      }
+    }
   }
 
   private static class ColorUtils {
-    private static RGB heatColor(int temperature) {
+    private static Color heatColor(int temperature) {
       // Pura magia negra
       int t191 = scale32Video(temperature, 191);
   
       int heatramp = t191 & 0x3F; // 0..63
       heatramp <<= 2; // scale up to 0..252
-  
-      RGB heatcolor = new RGB();
-  
+      
+      int[] buf = new int[3];
       if ((t191 & 0x80) != 0) {
-          heatcolor.r = 255;
-          heatcolor.g = 255;
-          heatcolor.b = heatramp;
+          buf[0] = 255;
+          buf[1] = 255;
+          buf[2] = heatramp;
       } else if ((t191 & 0x40) != 0) {
-          heatcolor.r = 255;
-          heatcolor.g = heatramp;
-          heatcolor.b = 0;
+          buf[0] = 255;
+          buf[1] = heatramp;
+          buf[2] = 0;
       } else {
-          heatcolor.r = heatramp;
-          heatcolor.g = 0;
-          heatcolor.b = 0;
+          buf[0] = heatramp;
+          buf[1] = 0;
+          buf[2] = 0;
       }
+      Color heatcolor = new Color(buf[0], buf[1], buf[2]);
+
       return heatcolor;
     }
 
@@ -109,17 +128,12 @@ public class Leds extends SubsystemBase {
   
       return j;
     }    
-    private static class RGB {
-      public int r;
-      public int g;
-      public int b;
-      }
-    }
-
+  }
 
   @Override
   public void periodic() {
-    draw(blowtorch());
+    pulse();
+    draw();
     m_led.setData(m_ledBuffer);
   }
 }
