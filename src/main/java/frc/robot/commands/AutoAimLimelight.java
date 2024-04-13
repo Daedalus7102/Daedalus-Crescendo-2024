@@ -13,7 +13,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Chasis;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Leds;
 import frc.robot.subsystems.Shooter;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.ConstantesIntake;
 import frc.robot.Constants.ConstantsShooter;
 /* Subsistema correspondiente al comando */
@@ -25,17 +27,19 @@ public class AutoAimLimelight extends Command {
   private final Chasis s_chasis;
   private final Shooter s_shooter;
   private final Intake s_intake;
+  private final Leds s_leds;
   Supplier<Double> xSpeed;
   private Timer temporizadorShooter = new Timer();
   boolean readyForShoot = false;
 
 
   /* Constructor del comando y sus atributos */
-  public AutoAimLimelight(Chasis s_chasis, Shooter s_shooter, Intake s_intake, Supplier<Double> xSpeed) {
+  public AutoAimLimelight(Chasis s_chasis, Shooter s_shooter, Intake s_intake, Supplier<Double> xSpeed, Leds s_leds) {
     this.s_chasis = s_chasis;
     this.s_shooter = s_shooter;
     this.s_intake = s_intake;
     this.xSpeed = xSpeed;
+    this.s_leds = s_leds;
     addRequirements(s_chasis);
   }
 
@@ -95,6 +99,8 @@ public class AutoAimLimelight extends Command {
   @Override
   public void execute() {
     /* Utiliza el método creado en el subsistema */
+    s_leds.setEffect(1);
+    
     temporizadorShooter.start();
     s_shooter.shooter(-ConstantsShooter.velocidadNeoShooter);
 
@@ -148,6 +154,7 @@ public class AutoAimLimelight extends Command {
     s_shooter.shooter(0);
     s_intake.intake(0);
     temporizadorShooter.reset();
+    s_leds.setEffect(0);
   }
 
   // Returns true when the command should end.

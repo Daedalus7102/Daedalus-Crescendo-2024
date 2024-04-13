@@ -58,7 +58,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("SHOOT", new MoverShooterAutomatico(shooter, intake, -ConstantsShooter.velocidadNeoShooter, ConstantesIntake.velocidadIntakeNeoEscupirParaShooter).withTimeout(0.8));
     NamedCommands.registerCommand("LOWER_INTAKE", new PivotearIntakeAutomatico(intake, shooter, 1).withTimeout(1.2));
     NamedCommands.registerCommand("RISE_INTAKE", new PivotearIntakeAutomatico(intake, shooter, 3));
-    NamedCommands.registerCommand("AIMBOT", new AutoAimLimelight(chasis, shooter, intake, null).withTimeout(4));
+    NamedCommands.registerCommand("AIMBOT", new AutoAimLimelight(chasis, shooter, intake, null, leds).withTimeout(4));
     // pathChooser = new PathChooser(new ThePaths());
     
     autoChooser = AutoBuilder.buildAutoChooser();
@@ -103,7 +103,7 @@ public class RobotContainer {
     new POVButton(mecanismsControl, Constants.ConstantesIO.flechaIzquierda).whileFalse(new PivotearIntakeAutomatico(intake, shooter, 3)); //Floor
     // new JoystickButton(mecanismsControl, Constants.ConstantesIO.bumperDerecho).whileFalse(new PivotearIntakeAutomatico(intake, shooter, 3)); //Shooter
 
-    new JoystickButton(driveControl, Constants.ConstantesIO.botonCruz).whileTrue(new AutoAimLimelight(chasis, shooter, intake, () -> (-driveControl.getRawAxis(0))));
+    new JoystickButton(driveControl, Constants.ConstantesIO.botonCruz).whileTrue(new AutoAimLimelight(chasis, shooter, intake, () -> (-driveControl.getRawAxis(0)), leds));
 
     new JoystickButton(mecanismsControl, ConstantesIO.botonCuadrado).toggleOnTrue(new AutoAMPScore(shooter, intake));
 

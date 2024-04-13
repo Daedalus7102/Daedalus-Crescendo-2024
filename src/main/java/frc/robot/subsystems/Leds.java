@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.units.Time;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.util.Color;
@@ -25,11 +24,24 @@ public class Leds extends SubsystemBase {
   private AddressableLED m_led = new AddressableLED(PORT);
   private AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(LENGTH*2);
   private Color[] drawBuffer = new Color[LENGTH];
+  private int state = 0;
   private Timer timer = new Timer();
   private Random random = new Random();
 
+  public void setEffect(int effectID) {
+    state = effectID;
+  }
+
   // -- EFECTOS -- //
   private void draw() {
+
+    if (state == 0) {
+      blowtorch();
+    } else if (state == 1) {
+      pulseGreen();
+    } else if (state == 2) {
+      bounce();
+    }
 
     for (int i = 0; i < LENGTH; i++) {
       drawBuffer[i] = m_ledBuffer.getLED(i);
@@ -72,11 +84,11 @@ public class Leds extends SubsystemBase {
     }
   }
 
-  private void pulse() {
-    double pos = Math.sin(timer.get() * 15);
+  private void pulseGreen() {
+    double pos = Math.sin(timer.get() * 20);
     if (pos >= 0) {
       for (int i=0; i < LENGTH; i++) {
-        m_ledBuffer.setLED(i, Color.kGreen);
+        m_ledBuffer.setRGB(i, 0, 255, 0);
       }
     } else {
       for (int i=0; i < LENGTH; i++) {
@@ -84,6 +96,31 @@ public class Leds extends SubsystemBase {
       }
     }
   }
+
+  private void bounce() {
+    float calc = LENGTH-1;
+
+    int pos = (int) Math.round(Math.sin(timer.get() * 4) * calc/2 + calc/2);
+    for (int i =0; i < LENGTH; i++){
+      m_ledBuffer.setLED(i, Color.kBlack);
+    }
+
+    if (pos > LENGTH - 2) {
+      m_ledBuffer.setHSV(pos, 30, 255, 150);
+    }
+    if (pos > LENGTH - 1) {
+      m_ledBuffer.setHSV(pos-1, 30, 255, 200);
+    }
+    m_ledBuffer.setHSV(pos, 30, 255, 255);
+    if (pos < LENGTH + 1) {
+      m_ledBuffer.setHSV(pos, 30, 255, 200);
+    }
+    if (pos < LENGTH + 2) {
+      m_ledBuffer.setHSV(pos, 30, 255, 150);
+    }
+  } 
+
+  
 
   private static class ColorUtils {
     private static Color heatColor(int temperature) {
@@ -132,7 +169,7 @@ public class Leds extends SubsystemBase {
 
   @Override
   public void periodic() {
-    pulse();
+    state = 2;
     draw();
     m_led.setData(m_ledBuffer);
   }
