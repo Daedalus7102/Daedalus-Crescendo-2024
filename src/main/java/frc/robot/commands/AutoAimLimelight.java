@@ -99,7 +99,7 @@ public class AutoAimLimelight extends Command {
   @Override
   public void execute() {
     /* Utiliza el método creado en el subsistema */
-    s_leds.setEffect(1);
+    s_leds.setEffect(1, 0, true);
     
     temporizadorShooter.start();
     s_shooter.shooter(-ConstantsShooter.velocidadNeoShooter);
@@ -126,7 +126,7 @@ public class AutoAimLimelight extends Command {
     double found = table.getEntry("tv").getDouble(0);
     if(found == 1){
 
-
+        s_leds.setEffect(3, 0, false);
         double xSpeed = calibrateX(x);
         double ySpeed = calibrateY(y);
         s_chasis.setFieldOrientedSpeed(-ySpeed, 0/*-this.xSpeed.get()*/, xSpeed);
@@ -154,7 +154,7 @@ public class AutoAimLimelight extends Command {
     s_shooter.shooter(0);
     s_intake.intake(0);
     temporizadorShooter.reset();
-    s_leds.setEffect(0);
+    s_leds.reset();
   }
 
   // Returns true when the command should end.

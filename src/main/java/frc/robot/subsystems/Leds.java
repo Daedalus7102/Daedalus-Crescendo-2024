@@ -18,42 +18,65 @@ public class Leds extends SubsystemBase {
   public Leds() {m_led.setLength(m_ledBuffer.getLength()); m_led.start(); timer.start();}
 
   // -- CONFIG -- //
-  private static final int LENGTH = 25; // La mitad de la cantidad de leds que hay
+  private static final int HALF_LENGTH = 25; // La mitad de la cantidad de leds que hay
   private static final int PORT = 0; // El puerto PWM en el que se conectan los leds
 
   private AddressableLED m_led = new AddressableLED(PORT);
-  private AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(LENGTH*2);
-  private Color[] drawBuffer = new Color[LENGTH];
-  private int state = 0;
+  private AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(HALF_LENGTH*2);
+  private Color[] drawBuffer = new Color[HALF_LENGTH];
   private Timer timer = new Timer();
   private Random random = new Random();
+  private int currentEffect = 0;
+  private boolean isSerpentine = false;
+  private int color = 0;
 
-  public void setEffect(int effectID) {
-    state = effectID;
+  /*  EFFECT IDs: 
+  0 - Blowtorch
+  1 - Pulse
+  2 - Bounce
+  3 - Breathe */
+  public void setEffect(int effectID, int hsv_hue, boolean serpentine) {
+    currentEffect = effectID;
+    color = hsv_hue;
+    isSerpentine = serpentine;
   }
 
-  // -- EFECTOS -- //
+  public void reset() {
+    currentEffect = 0;
+    color = 0;
+    isSerpentine = false;
+  }
+
   private void draw() {
 
-    if (state == 0) {
+    if (currentEffect == 0) {
       blowtorch();
-    } else if (state == 1) {
-      pulseGreen();
-    } else if (state == 2) {
+    } else if (currentEffect == 1) {
+      pulse();
+    } else if (currentEffect == 2) {
       bounce();
+    } else if (currentEffect == 3 ) {
+      breathe();
     }
 
-    for (int i = 0; i < LENGTH; i++) {
+    for (int i = 0; i < HALF_LENGTH; i++) {
       drawBuffer[i] = m_ledBuffer.getLED(i);
     }
 
-    for (int i = LENGTH; i < LENGTH*2; i++) {
-      m_ledBuffer.setLED(i, drawBuffer[i-LENGTH]);
+    if (isSerpentine) {
+      for (int i = HALF_LENGTH; i < HALF_LENGTH*2; i++) {
+        m_ledBuffer.setLED(i, drawBuffer[HALF_LENGTH*2 - i - 1]);
+      }
+      return;
+    }
+    for (int i = HALF_LENGTH; i < HALF_LENGTH*2; i++) {
+      m_ledBuffer.setLED(i, drawBuffer[i-HALF_LENGTH]);
     }
 
   }
 
-  private int[] heat = new int[LENGTH];
+  // -- EFECTOS -- //
+  private int[] heat = new int[HALF_LENGTH];
   private static final int COOLING = 100;
   private static final boolean REVERSE_DIRECTION = false;
   private void blowtorch() {
@@ -63,20 +86,20 @@ public class Leds extends SubsystemBase {
       //heat[i] = random.nextInt(200, 255);
     }
 
-    for( int i = 0; i < LENGTH; i++) {
-      heat[i] = heat[i] - random.nextInt(0, ((COOLING * 10) / LENGTH) + 5);
+    for( int i = 0; i < HALF_LENGTH; i++) {
+      heat[i] = heat[i] - random.nextInt(0, ((COOLING * 10) / HALF_LENGTH) + 5);
       heat[i] = heat[i] < 0 ? 0 : heat[i];
     }
   
-    for( int k= LENGTH - 1; k >= 2; k--) {
+    for( int k= HALF_LENGTH - 1; k >= 2; k--) {
       heat[k] = (heat[k - 1] + heat[k - 2] + heat[k - 2] ) / 3;
     }
   
-    for( int j = 0; j < LENGTH; j++) {
+    for( int j = 0; j < HALF_LENGTH; j++) {
       Color color = ColorUtils.heatColor( heat[j]);
       int pixelnumber;
       if ( REVERSE_DIRECTION ) {
-        pixelnumber = (LENGTH-1) - j;
+        pixelnumber = (HALF_LENGTH-1) - j;
       } else {
         pixelnumber = j;
       }
@@ -84,43 +107,65 @@ public class Leds extends SubsystemBase {
     }
   }
 
-  private void pulseGreen() {
+  private void breathe() {
+    double pos = Math.abs(Math.sin(timer.get() * 2 * Math.PI)); // Smoothly oscillates between 0 and 1
+    int maxBrightness = 255;
+    int minBrightness = 0;
+    int centerIndex = 12;
+    int threshold = 70; // Adjust the threshold to define the sharpness of the edge
+
+    // Calculate brightness based on the position within the pulse cycle
+    int brightness = (int) (minBrightness + pos * (maxBrightness - minBrightness));
+
+    // Set the brightness for each LED
+    for (int i = 0; i < HALF_LENGTH; i++) {
+        int distanceFromCenter = Math.abs(centerIndex - i);
+        int brightnessDelta = (int) (brightness * (1 - (double) distanceFromCenter / centerIndex));
+
+        // Apply the step function for sharper edges
+        if (brightnessDelta >= threshold) {
+            m_ledBuffer.setHSV(i, color, 255, brightnessDelta); // Assuming RGB LED strip, adjust as needed
+        } else {
+            m_ledBuffer.setHSV(i, color, 255, minBrightness); // Set to minimum brightness below the threshold
+        }
+    }
+}
+
+  private void pulse() {
     double pos = Math.sin(timer.get() * 20);
     if (pos >= 0) {
-      for (int i=0; i < LENGTH; i++) {
-        m_ledBuffer.setRGB(i, 0, 255, 0);
+      for (int i=0; i < HALF_LENGTH; i++) {
+        m_ledBuffer.setHSV(i, color, 255, 255);
       }
     } else {
-      for (int i=0; i < LENGTH; i++) {
-        m_ledBuffer.setLED(i, Color.kBlack);
+      for (int i=0; i < HALF_LENGTH; i++) {
+        m_ledBuffer.setHSV(i, 0,0,0);
       }
     }
   }
 
   private void bounce() {
-    float calc = LENGTH-1;
+    float calc = HALF_LENGTH-1;
 
     int pos = (int) Math.round(Math.sin(timer.get() * 4) * calc/2 + calc/2);
-    for (int i =0; i < LENGTH; i++){
+
+    for (int i =0; i < HALF_LENGTH; i++){
       m_ledBuffer.setLED(i, Color.kBlack);
     }
-
-    if (pos > LENGTH - 2) {
-      m_ledBuffer.setHSV(pos, 30, 255, 150);
+    if (pos-2 >= 0) {
+      m_ledBuffer.setHSV(pos-2, color, 255, 150);
     }
-    if (pos > LENGTH - 1) {
-      m_ledBuffer.setHSV(pos-1, 30, 255, 200);
+    if (pos-1 >= 0) {
+      m_ledBuffer.setHSV(pos-1, color, 255, 200);
     }
-    m_ledBuffer.setHSV(pos, 30, 255, 255);
-    if (pos < LENGTH + 1) {
-      m_ledBuffer.setHSV(pos, 30, 255, 200);
+    m_ledBuffer.setHSV(pos, color, 255, 255);
+    if (pos+1 <= HALF_LENGTH) {
+      m_ledBuffer.setHSV(pos+1, color, 255, 200);
     }
-    if (pos < LENGTH + 2) {
-      m_ledBuffer.setHSV(pos, 30, 255, 150);
+    if (pos+2 <= HALF_LENGTH) {
+      m_ledBuffer.setHSV(pos+2, color, 255, 150);
     }
   } 
-
-  
 
   private static class ColorUtils {
     private static Color heatColor(int temperature) {
@@ -169,7 +214,6 @@ public class Leds extends SubsystemBase {
 
   @Override
   public void periodic() {
-    state = 2;
     draw();
     m_led.setData(m_ledBuffer);
   }

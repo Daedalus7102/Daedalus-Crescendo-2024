@@ -9,13 +9,6 @@
       "window": {
         "visible": true
       }
-    },
-    "Other Devices": {
-      "Compressor[0]": {
-        "header": {
-          "open": true
-        }
-      }
     }
   },
   "NTProvider": {
@@ -28,9 +21,6 @@
     }
   },
   "NetworkTables Info": {
-    "Connections": {
-      "open": true
-    },
     "visible": true
   },
   "NetworkTables View": {
