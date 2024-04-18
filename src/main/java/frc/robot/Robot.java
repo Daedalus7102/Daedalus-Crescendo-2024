@@ -6,8 +6,11 @@ package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.utils.DriverReadouts;
@@ -24,8 +27,8 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     m_robotContainer = new RobotContainer();
 
-    // UsbCamera camera = CameraServer.startAutomaticCapture();
-    // camera.setResolution(18, 14);
+    UsbCamera camera = CameraServer.startAutomaticCapture();
+    //camera.setResolution(18, 14);
   }
 
   @Override
@@ -39,14 +42,25 @@ public class Robot extends TimedRobot {
     m_robotContainer.getChasisSubsystem().setChassisToBreak();
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
 
-    //m_robotContainer.getChasisSubsystem().setChassisToCoast();
+    m_robotContainer.getChasisSubsystem().setChassisToCoast();
 
-    // UsbCamera cameraIntake = CameraServer.startAutomaticCapture();
-    // cameraIntake.setResolution(18, 14);
+    //UsbCamera cameraIntake = CameraServer.startAutomaticCapture();
+    //cameraIntake.setResolution(18, 14);
   }
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+
+    NetworkTableEntry tx = table.getEntry("tx");
+    NetworkTableEntry ty = table.getEntry("ty");
+   
+    double x = tx.getDouble(0.0);
+    double y = ty.getDouble(0.0);
+
+    SmartDashboard.putNumber("LimelightX", x);
+    SmartDashboard.putNumber("LimelightY", y);
+  }
 
   @Override
   public void disabledExit() {

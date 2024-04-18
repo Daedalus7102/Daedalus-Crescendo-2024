@@ -1,75 +1,77 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.commands;
-import java.util.function.Supplier;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.ConstantesIntake;
+import frc.robot.Constants.ConstantsShooter;
+import frc.robot.Constants.VisionConstants;
 import frc.robot.subsystems.Chasis;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Leds;
 import frc.robot.subsystems.Shooter;
-import frc.robot.RobotContainer;
-import frc.robot.Constants.ConstantesIntake;
-import frc.robot.Constants.ConstantsShooter;
-/* Subsistema correspondiente al comando */
-import frc.robot.Constants.VisionConstants;
 
-public class AutoAimLimelight extends Command {
-
+public class AimbotPassNote extends Command{
   /* Variables a declarar dentro del comando */
   private final Chasis s_chasis;
   private final Shooter s_shooter;
   private final Intake s_intake;
   private final Leds s_leds;
-  Supplier<Double> xSpeed;
   private Timer temporizadorShooter = new Timer();
   boolean readyForShoot = false;
-
+  private double desiredPoseX;
+  private double desiredPoseY;
 
   /* Constructor del comando y sus atributos */
-  public AutoAimLimelight(Chasis s_chasis, Shooter s_shooter, Intake s_intake, Supplier<Double> xSpeed, Leds s_leds) {
+  public AimbotPassNote(Chasis s_chasis, Shooter s_shooter, Intake s_intake, Leds s_leds) {
     this.s_chasis = s_chasis;
     this.s_shooter = s_shooter;
     this.s_intake = s_intake;
-    this.xSpeed = xSpeed;
     this.s_leds = s_leds;
     addRequirements(s_chasis);
   }
-
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
 
+  public boolean getAllianceAsBoolean(){
+
+    //Hace que si detecta la alianza azul, el booleano se aplica a true
+    var alliance = DriverStation.getAlliance();
+    if (alliance.isPresent()) {
+        return alliance.get() == DriverStation.Alliance.Blue;
+    }
+    return false;
+  }
+
+  public void changeDesiredPose(){
+    if(getAllianceAsBoolean() == true){
+        desiredPoseX = VisionConstants.targetTXAimbotPassNoteToBLUE;
+        desiredPoseY = VisionConstants.targetTYAimbotPassNoteToBLUE;
+    }
+
+    else if (getAllianceAsBoolean() == false){
+        desiredPoseX = VisionConstants.targetTXAimbotPassNoteToRED;
+        desiredPoseY = VisionConstants.targetTYAimbotPassNoteToRED;
+    }
+  }
+
   public Double calibrateX(double tagPos){
-    boolean needsCalibration = tagPos <= VisionConstants.targetTXAutoAimSpeaker - VisionConstants.xThreshold || tagPos >= VisionConstants.targetTXAutoAimSpeaker + VisionConstants.xThreshold;
+    //if(DriverStation.getAlliance(); == )
+
+    boolean needsCalibration = tagPos <= desiredPoseX - VisionConstants.xThreshold || tagPos >= desiredPoseX + VisionConstants.xThreshold;
     // System.out.println(s_chasis.getDriveMotorOutput());
     // System.out.println(this.xSpeed.get());
 
     if(needsCalibration){
-        // double speed = VisionConstants.xMaxSpeed * (VisionConstants.targetTXAutoAimSpeaker - tagPos) / VisionConstants.targetTXAutoAimSpeaker; 
+        // double speed = VisionConstants.xMaxSpeed * (VisionConstants.targetTX - tagPos) / VisionConstants.targetTX; 
 
-        double xSpeed = this.xSpeed.get();
-
-        if (xSpeed <= 0.1){
-          xSpeed = 0;
-        }
-        double offset = (s_chasis.getDriveMotorOutput() * 0.03) * (Math.signum(xSpeed));
-        // System.out.println(offset);
-
-        if (offset <= 0.01){
-          offset = 0;
-        }
-
-        double error = (VisionConstants.targetTXAutoAimSpeaker /*+ offset*/) - tagPos; // Calcula el error
-        double speed = VisionConstants.kProt * VisionConstants.xMaxSpeed * error / VisionConstants.targetTXAutoAimSpeaker; // Ajusta la velocidad
+        double error = (desiredPoseX /*+ offset*/) - tagPos; // Calcula el error
+        double speed = VisionConstants.kProt * VisionConstants.xMaxSpeed * error / desiredPoseX; // Ajusta la velocidad
 
         if(speed > VisionConstants.xMaxSpeed){
           speed = VisionConstants.xMaxSpeed;
@@ -80,13 +82,13 @@ public class AutoAimLimelight extends Command {
   }
 
   public Double calibrateY(double tagPos){
-    boolean needsCalibration = tagPos <= VisionConstants.targetTYAutoAimSpeaker - VisionConstants.yThreshold || tagPos >= VisionConstants.targetTYAutoAimSpeaker + VisionConstants.yThreshold;
+    boolean needsCalibration = tagPos <= desiredPoseY - VisionConstants.yThreshold || tagPos >= desiredPoseY + VisionConstants.yThreshold;
 
     if(needsCalibration){
         // double speed = VisionConstants.yMaxSpeed * (VisionConstants.targetTY - tagPos) / VisionConstants.targetTY;
 
-        double error = VisionConstants.targetTYAutoAimSpeaker - tagPos; // Calcula el error
-        double speed = VisionConstants.kPdriveY * VisionConstants.yMaxSpeed * error / VisionConstants.targetTYAutoAimSpeaker; // Ajusta la velocidad
+        double error = desiredPoseY - tagPos; // Calcula el error
+        double speed = VisionConstants.kPdriveY * VisionConstants.yMaxSpeed * error / desiredPoseY; // Ajusta la velocidad
         
         if(speed > VisionConstants.yMaxSpeed){
           speed = VisionConstants.yMaxSpeed;
@@ -107,22 +109,13 @@ public class AutoAimLimelight extends Command {
 
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
     NetworkTableEntry tx = table.getEntry("tx");
-        
     NetworkTableEntry ty = table.getEntry("ty");
+        
     NetworkTableEntry ta = table.getEntry("ta");
-
-    NetworkTableEntry tID = table.getEntry("tID");
-    long ID = tID.getInteger(0);
-    System.out.println(DriverStation.getAlliance());
 
     //read values periodically
     double x = tx.getDouble(0.0);
     double y = ty.getDouble(0.0);
-
-    //NetworkTableEntry ledMode =  table.getEntry("limelight/ledMode");
-    //ledMode.setNumber(2);
-
-    //System.out.println(ledMode);
 
     double found = table.getEntry("tv").getDouble(0);
     if(found == 1){
@@ -133,13 +126,13 @@ public class AutoAimLimelight extends Command {
         s_chasis.setFieldOrientedSpeed(-ySpeed, 0/*-this.xSpeed.get()*/, xSpeed);
 
         //NO ESTA TOMANDO EN CUENTA EL TRESHOLD
-        if(Math.abs(x - VisionConstants.targetTXAutoAimSpeaker) <= 5 && Math.abs(y - VisionConstants.targetTYAutoAimSpeaker) <= 1 && temporizadorShooter.get() >= 0.4){
+        if(Math.abs(x - desiredPoseX) <= 5 && Math.abs(y - desiredPoseY) <= 0.8 && temporizadorShooter.get() >= 0.4){
           s_intake.intake(ConstantesIntake.velocidadIntakeNeoEscupirParaShooter);
         }
 
         SmartDashboard.putBoolean("Ready for shoot", readyForShoot);
-        SmartDashboard.putNumber("Required distance X", x - VisionConstants.targetTXAutoAimSpeaker);
-        SmartDashboard.putNumber("Required distance Y", y - VisionConstants.targetTYAutoAimSpeaker);
+        SmartDashboard.putNumber("Required distance X", x - desiredPoseX);
+        SmartDashboard.putNumber("Required distance Y", y - desiredPoseY);
     }
     else
     {

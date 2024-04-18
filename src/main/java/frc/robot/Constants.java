@@ -127,8 +127,14 @@ public class Constants {
     }
 
     public static class VisionConstants {
-        public static double targetTX = -8.40;//-13.22; //-9.8; //-8.5;
-        public static double targetTY = 1.15;//1.15;//-9.25;
+        public static double targetTXAutoAimSpeaker = -8.41;//-13.22; //-9.8; //-8.5;
+        public static double targetTYAutoAimSpeaker = 1.63;//1.15;//-9.25;
+
+        public static double targetTXAimbotPassNoteToBLUE = -8.40;//-13.22; //-9.8; //-8.5;
+        public static double targetTYAimbotPassNoteToBLUE = 1.15;//1.15;//-9.25;
+        
+        public static double targetTXAimbotPassNoteToRED = -8.40;//-13.22; //-9.8; //-8.5;
+        public static double targetTYAimbotPassNoteToRED = 1.15;//1.15;//-9.25;
 
         public static final double xThreshold = 0;//2;
         public static final double yThreshold = 0;//1.2;

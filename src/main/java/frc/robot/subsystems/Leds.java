@@ -80,14 +80,15 @@ public class Leds extends SubsystemBase {
   private static final int COOLING = 100;
   private static final boolean REVERSE_DIRECTION = false;
   private void blowtorch() {
-    int buf = random.nextInt(250, 280);
-    for (int i = 0; i <= random.nextInt(2, 4); i++){
+    int buf = random.nextInt(30) + 250;
+    
+    for (int i = 0; i <= random.nextInt(2) + 2; i++){
       heat[i] = buf;
       //heat[i] = random.nextInt(200, 255);
     }
 
     for( int i = 0; i < HALF_LENGTH; i++) {
-      heat[i] = heat[i] - random.nextInt(0, ((COOLING * 10) / HALF_LENGTH) + 5);
+      heat[i] = heat[i] - random.nextInt(((COOLING * 10) / HALF_LENGTH) + 5);
       heat[i] = heat[i] < 0 ? 0 : heat[i];
     }
   
