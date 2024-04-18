@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import frc.robot.commands.AimbotPassNote;
 import frc.robot.commands.AutoAMPScore;
 import frc.robot.commands.AutoAimLimelight;
 import frc.robot.commands.Manejo;
@@ -43,7 +44,7 @@ public class RobotContainer {
   private static final Shooter shooter = new Shooter();
   private static final Leds leds = new Leds();
 
-  private static final PS4Controller driveControl = new PS4Controller(0);
+  private static final PS5Controller driveControl = new PS5Controller(0);
   public static final PS5Controller mecanismsControl = new PS5Controller(1);
 
   // private frc.robot.utils.PathChooser pathChooser;
@@ -107,7 +108,8 @@ public class RobotContainer {
 
     new JoystickButton(mecanismsControl, ConstantesIO.botonCuadrado).toggleOnTrue(new AutoAMPScore(shooter, intake));
 
-    new JoystickButton(driveControl, ConstantesIO.bumperIzquierdo).toggleOnTrue(new RunCommand(chasis::changeDriveMode));
+    new JoystickButton(driveControl, ConstantesIO.botonCuadrado).whileTrue(new AimbotPassNote(chasis, shooter, intake, leds));
+
     /*}
 
     else {

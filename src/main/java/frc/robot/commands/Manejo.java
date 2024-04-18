@@ -12,7 +12,6 @@ public class Manejo extends Command{
     Chasis chasis;
     Supplier<Double> xSpeed, ySpeed, zSpeed;
     private final SlewRateLimiter xLimiter, yLimiter, zLimiter;
-    // private static boolean isFieldOriented = true;
 
     public Manejo(Chasis chasis, Supplier<Double> xSpeed, Supplier<Double> ySpeed, Supplier<Double> zSpeed){
         addRequirements(chasis);

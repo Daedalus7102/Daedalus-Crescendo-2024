@@ -133,13 +133,7 @@ public class Chasis extends SubsystemBase {
 
     public double getAngle(){
         //Funcion para pedirle ap Pigeon el angulo que esta midiendo
-            if (isFieldOriented) {
-                return (this.gyro.getAngle())%360;
-            }
-            else{
-                return 0;
-            }
-        
+        return (this.gyro.getAngle())%360;
     }
 
     public ChassisSpeeds getChassisSpeeds() {
