@@ -1,1 +1,1 @@
-Codigo para el robot Oropheus del equipo Daedalus 7102 para la temporada 2024
+'Orpheus' is the 2024 robot developed by the FRC team #7102 Daedalus. This repository has varied information about the robot such as the CAD files, robot images, the updated code and more.
