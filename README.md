@@ -22,7 +22,7 @@ This repository contains the robot code and images but you can also see:
 - **Houston Daly division**
     - Rank 56
 
-## Follow us on our social media!
+## Follow us on social media!
 [<img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/instagram/default.svg" width="110" height="50" alt="instagram logo"/>](https://www.instagram.com/daedalus7102/)[<img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/facebook/default.svg" width="110" height="50" alt="instagram logo"/>](https://www.facebook.com/Daedalus7102/)[<img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/youtube/default.svg" width="110" height="50" alt="instagram logo"/>](https://www.youtube.com/@Daedalus-yp1nq)
 
 ## Images
