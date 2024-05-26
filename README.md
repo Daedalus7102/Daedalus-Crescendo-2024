@@ -16,9 +16,19 @@ This repository contains the robot code and images but you can also see:
 -  **Hermosillo regional**
     -  Rank 5
     -  We were the first pick of the 3<sup>rd</sup> alliance with Team #6647 Voltec Robotics and Team #9282 Sinavolt
+    -  ***Autonomous Award***
     -  ***Regional winers***
-  
 
+- **Houston Daly division**
+    - Rank 56
+
+## Follow us on our social media!
+[<img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/instagram/default.svg" width="110" height="50" alt="instagram logo"/>](https://www.instagram.com/daedalus7102/)
+
+## Images:
+<div align="center">
+    
 ![image](https://github.com/Daedalus7102/Daedalus-Crescendo-2024/assets/153160193/9cce5ece-5c37-459b-9e27-4bec0edb08ae)
 
 ![1716752756586](https://github.com/Daedalus7102/Daedalus-Crescendo-2024/assets/153160193/9d44dd22-da4d-4d0b-8b40-b5984d4999f3)
+</div>
