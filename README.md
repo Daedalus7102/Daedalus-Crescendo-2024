@@ -25,7 +25,7 @@ This repository contains the robot code and images but you can also see:
 ## Follow us on our social media!
 [<img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/instagram/default.svg" width="110" height="50" alt="instagram logo"/>](https://www.instagram.com/daedalus7102/)[<img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/facebook/default.svg" width="110" height="50" alt="instagram logo"/>](https://www.facebook.com/Daedalus7102/)
 
-## Images:
+## Images
 <div align="center">
     
 ![image](https://github.com/Daedalus7102/Daedalus-Crescendo-2024/assets/153160193/9cce5ece-5c37-459b-9e27-4bec0edb08ae)
