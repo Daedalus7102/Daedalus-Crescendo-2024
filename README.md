@@ -1,17 +1,17 @@
 # FRC Team 7102 Daedalus - 2024 Public
-'Orpheus' is the 2024 robot developed by the FRC team #7102 Daedalus.
+'Orpheus' is the 2024 robot developed by the FRC Team #7102 Daedalus.
 
 This repository contains the robot code and images but you can also see:
 -  Our [2023]() robot repository
--  Our Chief Delphi [Robot thread]()
+-  Chief Delphi [Robot thread]()
 -  Our 2024 season [TBA](https://www.thebluealliance.com/team/7102)
--  Our 2024 season [Robot reveal](https://www.youtube.com/watch?v=lOFaQBQqqaQ)
+-  2024 season [Robot reveal](https://www.youtube.com/watch?v=lOFaQBQqqaQ)
 
 ## Our season's performance
 -  **Monterrey regional**
     -  Rank 21
     -  We were the first pick of the 5<sup>th</sup> alliance with Team #6647 Voltec Robotics and Team #5716 Keybot
-    -  With our alliance, we got up to Round 3
+    -  We got up to Round 3 with our alliance
 
 -  **Hermosillo regional**
     -  Rank 5
