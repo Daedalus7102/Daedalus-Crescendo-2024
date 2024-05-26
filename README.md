@@ -17,7 +17,7 @@ This repository contains the robot code and images but you can also see:
     -  Rank 5
     -  We were the first pick of the 3<sup>rd</sup> alliance with Team #6647 Voltec Robotics and Team #9282 Sinavolt
     -  ***Autonomous Award***
-    -  ***Regional winers***
+    -  ***Regional Winers***
 
 - **Houston Daly division**
     - Rank 56
