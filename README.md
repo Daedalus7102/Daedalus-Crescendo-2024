@@ -5,7 +5,7 @@ This repository contains the robot code and images but you can also see:
 -  Our [2023]() robot repository
 -  Our Chief Delphi [Robot thread]()
 -  Our 2024 season [TBA](https://www.thebluealliance.com/team/7102)
--  Our 2024 season [Robot reveal]()
+-  Our 2024 season [Robot reveal](https://www.youtube.com/watch?v=lOFaQBQqqaQ)
 
 ## Our season's performance
 -  **Monterrey regional**
@@ -23,7 +23,7 @@ This repository contains the robot code and images but you can also see:
     - Rank 56
 
 ## Follow us on our social media!
-[<img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/instagram/default.svg" width="110" height="50" alt="instagram logo"/>](https://www.instagram.com/daedalus7102/)[<img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/facebook/default.svg" width="110" height="50" alt="instagram logo"/>](https://www.facebook.com/Daedalus7102/)
+[<img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/instagram/default.svg" width="110" height="50" alt="instagram logo"/>](https://www.instagram.com/daedalus7102/)[<img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/facebook/default.svg" width="110" height="50" alt="instagram logo"/>](https://www.facebook.com/Daedalus7102/)[<img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/youtube/default.svg" width="110" height="50" alt="instagram logo"/>](https://www.youtube.com/@Daedalus-yp1nq)
 
 ## Images
 <div align="center">
