@@ -49,6 +49,7 @@ public class Leds extends SubsystemBase {
 
   private void draw() {
 
+    // Sketchy, will fix one day
     if (currentEffect == 0) {
       blowtorch();
     } else if (currentEffect == 1) {
