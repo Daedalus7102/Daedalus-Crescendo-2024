@@ -2,10 +2,10 @@
 'Orpheus' is the 2024 robot developed by the FRC Team #7102 Daedalus.
 
 This repository contains the robot code and images but you can also see:
--  Our [2023](https://github.com/Daedalus7102/Daedalus-Charged_Up-2023) robot repository
 -  Chief Delphi [Robot thread](https://www.chiefdelphi.com/t/daedalus-7102-2024-thread/466926?u=donmota_88)
 -  Our 2024 season [TBA](https://www.thebluealliance.com/team/7102)
 -  2024 season [Robot reveal](https://www.youtube.com/watch?v=lOFaQBQqqaQ)
+-  Our [2023](https://github.com/Daedalus7102/Daedalus-Charged_Up-2023) robot repository
 
 ## Our season's performance
 -  **Monterrey regional**
