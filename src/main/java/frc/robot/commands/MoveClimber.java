@@ -7,28 +7,26 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Climber;
 
-public class moverClimberManual extends Command {
+public class MoveClimber extends Command {
   
   private final Climber s_climber;
-  private final DoubleSolenoid.Value movimiento;
+  private final DoubleSolenoid.Value movement;
 
-  /** Creates a new Gripper. */
-  public moverClimberManual(Climber s_climber, DoubleSolenoid.Value movimiento) {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public MoveClimber(Climber s_climber, DoubleSolenoid.Value movement) {
     this.s_climber = s_climber;
-    this.movimiento = movimiento;
+    this.movement = movement;
     addRequirements(s_climber);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void execute() {
-    s_climber.moverClimber(movimiento);
+    s_climber.moveClimber(movement);
   }
 
   @Override
   public void end(boolean interrupted) {
-    s_climber.detenerClimber(DoubleSolenoid.Value.kOff);
+    s_climber.stopClimber(DoubleSolenoid.Value.kOff);
   }
 
   // Returns true when the command should end.

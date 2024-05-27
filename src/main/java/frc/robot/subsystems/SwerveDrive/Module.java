@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.SwerveDrive;
 
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.CANSparkMax;
@@ -11,9 +11,8 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Constants.SwerveDriveConstants;
 
 public class Module extends SubsystemBase{
     private static GenericEntry drivemotoroutputEntry = null;
@@ -28,7 +27,6 @@ public class Module extends SubsystemBase{
     private double PIDvalue = 0;
 
     private final CANcoder turnEncoder;
-    
     private final PIDController turnPID;
 
     private final double offset;
@@ -45,25 +43,21 @@ public class Module extends SubsystemBase{
         this.turnMotor.restoreFactoryDefaults(); 
 
         this.turnEncoder = new CANcoder(CANcoderID, "Drivetrain");
-
         this.turnPID = new PIDController(kP, kI, kD);
 
         this.turnPID.enableContinuousInput(-180, 180);
 
         this.moduleName = moduleName;
-
         ShuffleboardTab ModuleTab = Shuffleboard.getTab("Module " + this.moduleName);
-
         drivemotoroutputEntry = ModuleTab.add("Drive motor output " + this.moduleName, 0).withPosition(1, 3).withSize(3, 1).getEntry();
         realanglemoduleEntry = ModuleTab.add("Real angle module " + this.moduleName, getAngle().getDegrees()).withPosition(1, 2).withSize(3, 1).getEntry();
         desiredangleEntry = ModuleTab.add("Desired angle module " + this.moduleName, 0).withPosition(4, 2).withSize(3, 1).getEntry();
         turnmotoroutputEntry = ModuleTab.add("Turn motor output " + this.moduleName, 0).withPosition(4, 3).withSize(3, 1).getEntry();
-
     }
 
     public SwerveModulePosition getPosition(){
         return new SwerveModulePosition(getDrivePosition(), getAngle());
-      }   
+      }
 
     public void setDesiredState(SwerveModuleState desiredState, String moduleName){
         desiredState =  SwerveModuleState.optimize(desiredState, getAngle());
@@ -71,10 +65,9 @@ public class Module extends SubsystemBase{
         if (Math.abs(desiredState.speedMetersPerSecond) < 0.05){
             stop();
             return;
-            }
+        }
         setSpeed(desiredState, moduleName);
         setAngle(desiredState, moduleName);
-
     }
 
     public void stop(){
@@ -85,7 +78,6 @@ public class Module extends SubsystemBase{
     public void setSpeed(SwerveModuleState desiredState, String moduleName){
         turnMotorvalue = desiredState.speedMetersPerSecond; 
         driveMotor.set(turnMotorvalue);
-        SmartDashboard.putNumber("Drive motor output " + moduleName, desiredState.speedMetersPerSecond);
     }
 
     public void setAngle(SwerveModuleState desiredState, String moduleName){
@@ -93,9 +85,6 @@ public class Module extends SubsystemBase{
         desiredAngle = desiredState.angle.getDegrees();
         PIDvalue = turnPID.calculate(realAngle, desiredAngle);
         turnMotor.set(PIDvalue);
-        SmartDashboard.putNumber("Real angle module " + moduleName, realAngle);
-        SmartDashboard.putNumber("Desired angle module " + moduleName, desiredAngle);
-        SmartDashboard.putNumber("Turn motor output " + moduleName, PIDvalue);  
     }
     
     public Rotation2d getAngle(){
@@ -104,19 +93,16 @@ public class Module extends SubsystemBase{
 
     public SwerveModuleState getSwerveState(){
         return new SwerveModuleState(getDriveVelocity(), getAngle());
-     }
+    }
 
      public double getDriveVelocity(){
-        return driveMotor.getEncoder().getVelocity() * Constants.driveRPS2MPS;
+        return driveMotor.getEncoder().getVelocity() * SwerveDriveConstants.driveRPS2MPS;
     }
 
     public double getDrivePosition(){
         double position;
-
         position = driveMotor.getEncoder().getPosition();
-
-        position *= Constants.driveRevsToMeters;
-        
+        position *= SwerveDriveConstants.driveRevsToMeters;
         return position;
     }
 

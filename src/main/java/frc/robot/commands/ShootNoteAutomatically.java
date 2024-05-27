@@ -6,27 +6,22 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
-/* Subsistema correspondiente al comando */
 import frc.robot.subsystems.Shooter;
 
-public class MoverShooterAutomatico extends Command {
-
-  /* Variables a declarar dentro del comando */
+public class ShootNoteAutomatically extends Command {
   private final Shooter s_shooter;
   private final Intake s_intake;
-  private final double shooter_velocidad;
-  private final double intake_velocidad;
+  private final double shooter_velocity;
+  private final double intake_velocity;
   private Timer temporizadorShooter = new Timer();
 
-  /* Constructor del comando y sus atributos */
-  public MoverShooterAutomatico(Shooter s_shooter, Intake s_intake, double shooter_velocidad, double intake_velocidad) {
+  public ShootNoteAutomatically(Shooter s_shooter, Intake s_intake, double shooter_velocity, double intake_velocity) {
     this.s_shooter = s_shooter;
     this.s_intake = s_intake;
-    this.shooter_velocidad = shooter_velocidad;
-    this.intake_velocidad = intake_velocidad;
+    this.shooter_velocity = shooter_velocity;
+    this.intake_velocity = intake_velocity;
     addRequirements(s_shooter);
   }
-
 
 private double getTemporizador(){
     return temporizadorShooter.get();
@@ -42,25 +37,23 @@ private double getTemporizador(){
     if (getTemporizador() == 0){
       temporizadorShooter.start();
     }
-    if (getTemporizador() <= 0.7){
-    s_shooter.shooter(shooter_velocidad);
+    else if (getTemporizador() <= 0.7){
+    s_shooter.shooter(shooter_velocity);
     }
-    if (getTemporizador() >= 0.4 & getTemporizador()<=0.7){
-        s_intake.intake(intake_velocidad);
+    else if (getTemporizador() >= 0.4 & getTemporizador()<=0.7){
+        s_intake.intakeRollers(intake_velocity);
     }
-    if (getTemporizador() >= 0.7){
-      s_intake.intake(0);
+    else if (getTemporizador() >= 0.7){
+      s_intake.intakeRollers(0);
       s_shooter.shooter(0);
     }
-    /* Utiliza el método creado en el subsistema */
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    /* Utiliza el método creado en el subsistema */
     s_shooter.shooter(0);
-    s_intake.intake(0);
+    s_intake.intakeRollers(0);
     temporizadorShooter.stop();
     temporizadorShooter.reset();
   }

@@ -7,7 +7,6 @@ package frc.robot;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
-import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -15,59 +14,44 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import frc.robot.commands.AimbotPassNote;
-import frc.robot.commands.AutoAMPScore;
-import frc.robot.commands.AutoAimLimelight;
-import frc.robot.commands.Manejo;
-import frc.robot.commands.MoverShooterAutomatico;
-import frc.robot.commands.intakeNoteManual;
-import frc.robot.commands.moverClimberManual;
-import frc.robot.commands.moverShooterManual;
-import frc.robot.commands.PivotearIntakeAutomatico;
-import frc.robot.subsystems.Chasis;
+import frc.robot.commands.APMScoreAutomatically;
+import frc.robot.commands.ShootingAimAutomatically;
+import frc.robot.commands.DriveCommand;
+import frc.robot.commands.ShootNoteAutomatically;
+import frc.robot.commands.SpinIntakeRollersManual;
+import frc.robot.commands.MoveClimber;
+import frc.robot.commands.PivotIntakeAutomatically;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Leds;
-import frc.robot.utils.PathChooser;
-import frc.robot.utils.ThePaths;
+import frc.robot.subsystems.SwerveDrive.Chassi;
 import frc.robot.subsystems.Climber;
-import frc.robot.Constants.ConstantesClimber;
-import frc.robot.Constants.ConstantesIO;
-import frc.robot.Constants.ConstantesIntake;
+import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.ConstantsShooter;
+import frc.robot.Constants.IntakeConstants;
 
-//El container construye el chasis y el módulo directamente (accede a esas clases estableciendo unión al código del robot)
 public class RobotContainer {
-  private static final Chasis chasis = new Chasis();
+  private static final Chassi chasis = new Chassi();
   private static final Intake intake = new Intake();
   private static final Climber climber = new Climber();
   private static final Shooter shooter = new Shooter();
-  private static final Leds leds = new Leds();
 
   private static final PS5Controller driveControl = new PS5Controller(0);
   public static final PS5Controller mecanismsControl = new PS5Controller(1);
-
-  // private frc.robot.utils.PathChooser pathChooser;
 
   private final SendableChooser<Command> autoChooser;
 
 
   public RobotContainer() {
-    //Para que la información de los controles se actualice constantemente, el método get de la clase "Manejo" pedirá la información 
-    //a esta clase, para así en vez de dejar un valor fijo, asignar valores requeridos al robot constantemente.
-    /* */
-    NamedCommands.registerCommand("SHOOT", new MoverShooterAutomatico(shooter, intake, -ConstantsShooter.velocidadNeoShooter, ConstantesIntake.velocidadIntakeNeoEscupirParaShooter).withTimeout(0.8));
-    NamedCommands.registerCommand("LOWER_INTAKE", new PivotearIntakeAutomatico(intake, shooter, 1).withTimeout(1.2));
-    NamedCommands.registerCommand("RISE_INTAKE", new PivotearIntakeAutomatico(intake, shooter, 3));
-    NamedCommands.registerCommand("AIMBOT", new AutoAimLimelight(chasis, shooter, intake, null, leds).withTimeout(4));
-    // pathChooser = new PathChooser(new ThePaths());
+    NamedCommands.registerCommand("SHOOT", new ShootNoteAutomatically(shooter, intake, -ConstantsShooter.shooterMotorVelocity, IntakeConstants.intakeMotorVelocityThrowForShooter).withTimeout(0.8));
+    NamedCommands.registerCommand("LOWER_INTAKE", new PivotIntakeAutomatically(intake, 1).withTimeout(1.2));
+    NamedCommands.registerCommand("RISE_INTAKE", new PivotIntakeAutomatically(intake, 3));
+    NamedCommands.registerCommand("AIMBOT", new ShootingAimAutomatically(chasis, shooter, intake).withTimeout(4));
     
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Mode", autoChooser);
 
-
     chasis.setDefaultCommand(
-      new Manejo(
+      new DriveCommand(
         chasis,
         () -> (-driveControl.getRawAxis(1)),
         () -> (driveControl.getRawAxis(0)),
@@ -79,62 +63,39 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    new JoystickButton(driveControl, Constants.ConstantesIO.botonTriangulo).whileTrue(new RunCommand(chasis::zeroHeading));
-    // new JoystickButton(driveControl, ConstantesIO.bumperIzquierdo).toggleOnTrue(new RunCommand(Manejo::toggleDriveMode).withTimeout(0.2));
+    //Chassi driver controls
+    new JoystickButton(driveControl, Constants.IOConstants.buttonTriangle).whileTrue(new RunCommand(chasis::zeroHeading));
+    new JoystickButton(driveControl, Constants.IOConstants.triggerRight).whileTrue(new PivotIntakeAutomatically(intake, 1)); //Floor
+    new JoystickButton(driveControl, Constants.IOConstants.triggerLeft).whileFalse(new PivotIntakeAutomatically(intake, 3)); //Shooter
+    new JoystickButton(driveControl, Constants.IOConstants.buttonCross).whileTrue(new ShootingAimAutomatically(chasis, shooter, intake));
 
-    //new JoystickButton(mecanismsControl, Constants.ConstantesIO.botonCuadrado).whileTrue(new pivoterIntake(intake, Constants.ConstantesIntake.velocidadIntakePivotNeo));
-    //new JoystickButton(mecanismsControl, Constants.ConstantesIO.botonCirculo).whileTrue(new pivoterIntake(intake, -Constants.ConstantesIntake.velocidadIntakePivotNeo));
-    new JoystickButton(mecanismsControl, Constants.ConstantesIO.gatilloDerecho).whileTrue(new intakeNoteManual(intake, ConstantesIntake.velocidadIntakeNeoEscupir));
-    new JoystickButton(mecanismsControl, Constants.ConstantesIO.gatilloIzquierdo).whileTrue(new intakeNoteManual(intake, ConstantesIntake.velocidadIntakeNeoChupar));
-    new POVButton(mecanismsControl, Constants.ConstantesIO.flechaAbajo).whileTrue(new moverClimberManual(climber, ConstantesClimber.subir));
-    new POVButton(mecanismsControl, Constants.ConstantesIO.flechaArriba).whileTrue(new moverClimberManual(climber, ConstantesClimber.bajar));
-    new JoystickButton(mecanismsControl, Constants.ConstantesIO.botonCruz).whileTrue(new moverShooterManual(shooter, Constants.ConstantsShooter.velocidadNeoShooter));
+    //Mechanisms driver controls
+    new JoystickButton(mecanismsControl, Constants.IOConstants.triggerRight).whileTrue(new SpinIntakeRollersManual(intake, IntakeConstants.intakeMotorVelocityThrow));
+    new JoystickButton(mecanismsControl, Constants.IOConstants.triggerLeft).whileTrue(new SpinIntakeRollersManual(intake, IntakeConstants.intakeMotorVelocitySuck));
 
+    new POVButton(mecanismsControl, Constants.IOConstants.arrowDown).whileTrue(new MoveClimber(climber, ClimberConstants.rise));
+    new POVButton(mecanismsControl, Constants.IOConstants.arrowUp).whileTrue(new MoveClimber(climber, ClimberConstants.lower));
     
-    //new JoystickButton(mecanismsControl, Constants.ConstantesIO.botonOptions).whileTrue(new RunCommand(intake::sumarUnoValorBotonOptions));9
-    //if (Intake.valorBotonOptions % 2 == 0){
-    new JoystickButton(mecanismsControl, Constants.ConstantesIO.botonTriangulo).toggleOnTrue(new MoverShooterAutomatico(shooter, intake, -ConstantsShooter.velocidadNeoShooter, ConstantesIntake.velocidadIntakeNeoEscupirParaShooter));      
-    new JoystickButton(driveControl, Constants.ConstantesIO.gatilloDerecho).whileTrue(new PivotearIntakeAutomatico(intake, shooter, 1)); //Floor
-    new JoystickButton(mecanismsControl, Constants.ConstantesIO.bumperDerecho).toggleOnTrue(new PivotearIntakeAutomatico(intake, shooter, 2)); //Amp
-    new JoystickButton(driveControl, Constants.ConstantesIO.gatilloDerecho).whileFalse(new PivotearIntakeAutomatico(intake, shooter, 3)); //Shooter
-    
+    new JoystickButton(mecanismsControl, Constants.IOConstants.buttonTriangle).toggleOnTrue(new ShootNoteAutomatically(shooter, intake, -ConstantsShooter.shooterMotorVelocity, IntakeConstants.intakeMotorVelocityThrowForShooter));      
+    new JoystickButton(mecanismsControl, Constants.IOConstants.buttonSquare).toggleOnTrue(new APMScoreAutomatically(shooter, intake)); 
 
-    new POVButton(mecanismsControl, Constants.ConstantesIO.flechaIzquierda).whileTrue(new PivotearIntakeAutomatico(intake, shooter, 1)); //Floor
-    new JoystickButton(mecanismsControl, Constants.ConstantesIO.bumperIzquierdo).toggleOnTrue(new PivotearIntakeAutomatico(intake, shooter, 3)); //Shooter
-    new POVButton(mecanismsControl, Constants.ConstantesIO.flechaIzquierda).whileFalse(new PivotearIntakeAutomatico(intake, shooter, 3)); //Floor
-    // new JoystickButton(mecanismsControl, Constants.ConstantesIO.bumperDerecho).whileFalse(new PivotearIntakeAutomatico(intake, shooter, 3)); //Shooter
+    new POVButton(mecanismsControl, Constants.IOConstants.arrowLeft).whileTrue(new PivotIntakeAutomatically(intake, 1)); //Floor
+    new JoystickButton(mecanismsControl, Constants.IOConstants.bumperRight).toggleOnTrue(new PivotIntakeAutomatically(intake, 2)); //Amp    
+    new JoystickButton(mecanismsControl, Constants.IOConstants.bumoerLeft).toggleOnTrue(new PivotIntakeAutomatically(intake, 3)); //Shooter
 
-    new JoystickButton(driveControl, Constants.ConstantesIO.botonCruz).whileTrue(new AutoAimLimelight(chasis, shooter, intake, () -> (-driveControl.getRawAxis(0)), leds));
-
-    new JoystickButton(mecanismsControl, ConstantesIO.botonCuadrado).toggleOnTrue(new AutoAMPScore(shooter, intake));
-
-    new JoystickButton(driveControl, ConstantesIO.botonCuadrado).whileTrue(new AimbotPassNote(chasis, shooter, intake, leds));
-
-    /*}
-
-    else {
-    new JoystickButton(mecanismsControl, Constants.ConstantesIO.flechaDerecha).whileTrue(new pivotearIntakeManual(intake, Constants.ConstantesIntake.velocidadIntakePivotNeo));
-    new JoystickButton(mecanismsControl, Constants.ConstantesIO.flechaIzquierda).whileTrue(new pivotearIntakeManual(intake, -Constants.ConstantesIntake.velocidadIntakePivotNeo));
-    }
-    
-
-    new JoystickButton(driveControl, Constants.ConstantesIO.gatilloDerecho);*/    
+    new POVButton(mecanismsControl, Constants.IOConstants.arrowLeft).whileFalse(new PivotIntakeAutomatically(intake, 3)); //Shooter
   }
 
-
   public Command getAutonomousCommand() {
+    //Reads the information sent from the auto chooser
     return autoChooser.getSelected();
   }
 
-  public Chasis getChasisSubsystem() {
+  public Chassi getChasisSubsystem() {
     return chasis;
   }
 
   public Intake getIntakeSubsystem() {
     return intake;
-  }
-
-  public Leds getLedsSubsystem() {
-    return leds;
   }
 }

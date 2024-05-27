@@ -8,22 +8,20 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Climber extends SubsystemBase {
-  
+public class Climber extends SubsystemBase {  
   private final DoubleSolenoid m_solenoids = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
 
-  /** Creates a new Gripper. */
   public Climber() {} 
 
   @Override
   public void periodic() {}
 
-    public void moverClimber(DoubleSolenoid.Value movimiento) {
-      m_solenoids.set(movimiento);
+    public void moveClimber(DoubleSolenoid.Value movement) {
+      m_solenoids.set(movement);
     }
 
-    public void detenerClimber(DoubleSolenoid.Value detenerMovimiento) {
-      m_solenoids.set(detenerMovimiento);
+    public void stopClimber(DoubleSolenoid.Value stopMovement) {
+      m_solenoids.set(stopMovement);
     }
 
 }

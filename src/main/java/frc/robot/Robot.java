@@ -13,22 +13,16 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.utils.DriverReadouts;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
 
-  @SuppressWarnings("unused")
-  private final DriverReadouts driverReadout = new DriverReadouts(m_robotContainer);
-
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
-
     UsbCamera camera = CameraServer.startAutomaticCapture();
-    //camera.setResolution(18, 14);
   }
 
   @Override
@@ -43,18 +37,13 @@ public class Robot extends TimedRobot {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
 
     m_robotContainer.getChasisSubsystem().setChassisToCoast();
-
-    //UsbCamera cameraIntake = CameraServer.startAutomaticCapture();
-    //cameraIntake.setResolution(18, 14);
   }
 
   @Override
   public void disabledPeriodic() {
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-
     NetworkTableEntry tx = table.getEntry("tx");
     NetworkTableEntry ty = table.getEntry("ty");
-   
     double x = tx.getDouble(0.0);
     double y = ty.getDouble(0.0);
 

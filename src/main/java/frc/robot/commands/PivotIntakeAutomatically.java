@@ -4,21 +4,16 @@
 
 package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Intake;
 
-/* Subsistema correspondiente al comando */
-import frc.robot.subsystems.Shooter;
+public class PivotIntakeAutomatically extends Command {
+  private final Intake s_intake;
+  private final int s_position;
 
-public class moverShooterManual extends Command {
-
-  /* Variables a declarar dentro del comando */
-  private final Shooter s_shooter;
-  private final double shooter_velocidad;
-
-  /* Constructor del comando y sus atributos */
-  public moverShooterManual(Shooter s_shooter, double shooter_velocidad) {
-    this.s_shooter = s_shooter;
-    this.shooter_velocidad = shooter_velocidad;
-    addRequirements(s_shooter);
+  public PivotIntakeAutomatically(Intake s_intake, int s_position) {
+    this.s_intake = s_intake;
+    this.s_position = s_position;
+    addRequirements(s_intake);
   }
 
   // Called when the command is initially scheduled.
@@ -28,15 +23,13 @@ public class moverShooterManual extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    /* Utiliza el método creado en el subsistema */
-    s_shooter.shooter(shooter_velocidad);
+    s_intake.setIntakePosition(s_position);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    /* Utiliza el método creado en el subsistema */
-    s_shooter.shooter(0);
+    s_intake.intakePivot(0);
   }
 
   // Returns true when the command should end.

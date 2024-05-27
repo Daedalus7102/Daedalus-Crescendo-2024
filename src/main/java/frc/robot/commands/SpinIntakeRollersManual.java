@@ -8,16 +8,16 @@ import edu.wpi.first.wpilibj2.command.Command;
 /* Subsistema correspondiente al comando */
 import frc.robot.subsystems.Intake;
 
-public class intakeNoteManual extends Command {
+public class SpinIntakeRollersManual extends Command {
 
   /* Variables a declarar dentro del comando */
   private final Intake s_intake;
-  private final double s_velocidad;
+  private final double velocity;
 
   /* Constructor del comando y sus atributos */
-  public intakeNoteManual(Intake s_intake, double s_velocidad) {
+  public SpinIntakeRollersManual(Intake s_intake, double velocity) {
     this.s_intake = s_intake;
-    this.s_velocidad = s_velocidad;
+    this.velocity = velocity;
     addRequirements(s_intake);
   }
 
@@ -29,14 +29,14 @@ public class intakeNoteManual extends Command {
   @Override
   public void execute() {
     /* Utiliza el método creado en el subsistema */
-    s_intake.intake(s_velocidad);
+    s_intake.intakeRollers(velocity);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     /* Utiliza el método creado en el subsistema */
-    s_intake.intake(0);
+    s_intake.intakeRollers(0);
   }
 
   // Returns true when the command should end.

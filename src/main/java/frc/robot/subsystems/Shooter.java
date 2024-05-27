@@ -17,17 +17,17 @@ public class Shooter extends SubsystemBase{
   @Override
   public void periodic() {}
 
-  public void shooter(double velocidad) {
-    shooterMotor1.set(velocidad);
-    shooterMotor2.set(velocidad);
+  public void shooter(double velocity) {
+    shooterMotor1.set(velocity);
+    shooterMotor2.set(velocity);
   }
 
-  public void shooterMotor1(double velocidad) {
-    shooterMotor1.set(velocidad);
+  public void shooterMotor1(double velocity) {
+    shooterMotor1.set(velocity);
   }
 
-  public void shooterMotor2(double velocidad) {
-      shooterMotor2.set(velocidad);
+  public void shooterMotor2(double velocity) {
+    shooterMotor2.set(velocity);
   }
 
 }
