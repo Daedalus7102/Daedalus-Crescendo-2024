@@ -16,12 +16,11 @@ public class Climber extends SubsystemBase {
   @Override
   public void periodic() {}
 
-    public void moveClimber(DoubleSolenoid.Value movement) {
-      m_solenoids.set(movement);
-    }
+  public void moveClimber(DoubleSolenoid.Value movement) {
+    m_solenoids.set(movement);
+  }
 
-    public void stopClimber(DoubleSolenoid.Value stopMovement) {
-      m_solenoids.set(stopMovement);
-    }
-
+  public void stopClimber(DoubleSolenoid.Value stopMovement) {
+    m_solenoids.set(stopMovement);
+  }
 }

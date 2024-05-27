@@ -19,7 +19,6 @@ import frc.robot.Constants.VisionConstants;
 
 public class ShootingAimAutomatically extends Command {
 
-  /* Variables a declarar dentro del comando */
   private final Chassi s_chasis;
   private final Shooter s_shooter;
   private final Intake s_intake;
@@ -27,7 +26,6 @@ public class ShootingAimAutomatically extends Command {
   boolean readyForShoot = false;
 
 
-  /* Constructor del comando y sus atributos */
   public ShootingAimAutomatically(Chassi s_chasis, Shooter s_shooter, Intake s_intake) {
     this.s_chasis = s_chasis;
     this.s_shooter = s_shooter;
@@ -107,7 +105,6 @@ public class ShootingAimAutomatically extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    /* Uses the method created in the subsystem */
     s_chasis.setFieldOrientedSpeed(0, 0, 0);
     s_shooter.shooter(0);
     s_intake.intakeRollers(0);

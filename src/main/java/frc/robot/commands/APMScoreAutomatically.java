@@ -23,9 +23,11 @@ public class APMScoreAutomatically extends Command {
     return AMPScoreTimer.get();
   }
 
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
 
+  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     AMPScoreTimer.start();
@@ -45,6 +47,7 @@ public class APMScoreAutomatically extends Command {
     }
   }
 
+  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     s_shooter.shooter(0);

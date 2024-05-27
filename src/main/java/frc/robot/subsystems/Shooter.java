@@ -6,8 +6,8 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shooter extends SubsystemBase{
-  private final CANSparkMax shooterMotor1 = new CANSparkMax(11, MotorType.kBrushless);//9
-  private final CANSparkMax shooterMotor2 = new CANSparkMax(12, MotorType.kBrushless);//10
+  private final CANSparkMax shooterMotor1 = new CANSparkMax(11, MotorType.kBrushless);
+  private final CANSparkMax shooterMotor2 = new CANSparkMax(12, MotorType.kBrushless);
 
   public Shooter() {
       shooterMotor1.setInverted(true);

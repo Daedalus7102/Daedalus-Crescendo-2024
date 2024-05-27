@@ -77,8 +77,6 @@ public class Chassi extends SubsystemBase {
         return !isFieldOriented;
     }
 
-
-
     final SwerveDriveKinematics kinematics = new SwerveDriveKinematics(frontLeftTranslation, backLeftTranslation, frontRightTranslation, backRightTranslation);
 
     SwerveModulePosition[] positions = {frontLeft.getPosition(), backLeft.getPosition(), 
@@ -206,22 +204,16 @@ public class Chassi extends SubsystemBase {
     public void updateShuffle(){
         Double gyroangleTemp = (this.gyro.getAngle())%360;
         poseXEntry.setDouble(gyroangleTemp);
-
         Double poseXTemp = getPose2d().getX();
         poseXEntry.setDouble(poseXTemp);
-
         Double poseYTemp = getPose2d().getY();
         poseYEntry.setDouble(poseYTemp);
-
         Double frontLeftTemp = this.frontLeft.getAngle().getDegrees();
         frontLeftEntry.setDouble(frontLeftTemp);
-
         Double frontRightTemp = this.frontRight.getAngle().getDegrees();
         frontRightEntry.setDouble(frontRightTemp);
-
         Double backLeftTemp = this.backLeft.getAngle().getDegrees();
         backLeftEntry.setDouble(backLeftTemp);
-
         Double backRightTemp = this.backRight.getAngle().getDegrees();
         backRightEntry.setDouble(backRightTemp);
 
@@ -243,6 +235,6 @@ public class Chassi extends SubsystemBase {
         DataLogManager.start();
         DriverStation.startDataLog(DataLogManager.getLog());
         updateShuffle();
-        SmartDashboard.putString("positions modules", positions.toString());
+        SmartDashboard.putString("Positions modules", positions.toString());
     }
 }

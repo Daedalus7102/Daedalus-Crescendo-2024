@@ -11,25 +11,25 @@ public class Constants {
         public static final int driveMotorIDfrontLeft = 4;
         public static final int turnMotorIDfrontLeft = 6;
         public static final int cancoderIDfrontLeft = 1;
-        public static final double FRONT_LEFT_MODULE_STEER_OFFSET = 180;//178.330078125;//177.7148 + 90;
+        public static final double FRONT_LEFT_MODULE_STEER_OFFSET = 180;
 
         //Front Right Module Information (Used in the "Chassi" class)
         public static final int driveMotorIDfrontRight = 8;
         public static final int turnMotorIDfrontRight = 5;
         public static final int cancoderIDfrontRight = 2;
-        public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = 180;//174.7265625;//175.2539 + 90;
+        public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = 180;
 
         //Back Left Module Information (Used in the "Chassi" class)
         public static final int driveMotorIDbackLeft = 2;
         public static final int turnMotorIDbackLeft = 7;
         public static final int cancoderIDbackLeft = 3;
-        public static final double BACK_LEFT_MODULE_STEER_OFFSET = 180;//70.48828125;//68.2031 + 90;
+        public static final double BACK_LEFT_MODULE_STEER_OFFSET = 180;
 
         //Back Right Module Information (Used in the "Chassi" class)
         public static final int driveMotorIDbackRight = 3;
         public static final int turnMotorIDbackRight = 1;
         public static final int cancoderIDbackRight = 4;
-        public static final double BACK_RIGHT_MODULE_STEER_OFFSET = 180;//171.123046875;//171.2109 + 90;
+        public static final double BACK_RIGHT_MODULE_STEER_OFFSET = 180;
 
         //PID values [We will assume that we have to use the same value for all 4 modules] (Used in "Chassis" class)
         public static final double genericModulekP = 0.0048;
@@ -39,7 +39,7 @@ public class Constants {
         public static final double standardTolerance = 0.03;
     
         //Information used to know the distance that the chassi has moved
-        public static final double driveRevsToMeters = 4 * Math.PI / (39.37 * 8.14)  * 1.25; //1.25
+        public static final double driveRevsToMeters = 4 * Math.PI / (39.37 * 8.14)  * 1.25;
         public static final double driveRPS2MPS = driveRevsToMeters;
 
 
@@ -124,7 +124,7 @@ public class Constants {
 
     public static final class ConstantesShuffleboard {
         public static final ShuffleboardTab AutonomousTab = Shuffleboard.getTab("Autonomous");
-        public static final ShuffleboardTab ChasisTab = Shuffleboard.getTab("Chasis");
+        public static final ShuffleboardTab ChasisTab = Shuffleboard.getTab("Chassi");
         public static final ShuffleboardTab IntakeTab = Shuffleboard.getTab("Intake");
     }
 }

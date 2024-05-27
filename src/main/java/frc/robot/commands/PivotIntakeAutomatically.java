@@ -32,7 +32,6 @@ public class PivotIntakeAutomatically extends Command {
     s_intake.intakePivot(0);
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;

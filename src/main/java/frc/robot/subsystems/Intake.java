@@ -148,7 +148,6 @@ public class Intake extends SubsystemBase {
     if (getInfraredSensorValue() == true && getIntakeEncoderPosition() <= 40){
       timerForLimelightBlink.start();
     }
-
     if(timerForLimelightBlink.get() <= 1.5 && timerForLimelightBlink.get() >= 0.2){
       NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(2);
     }
@@ -157,13 +156,11 @@ public class Intake extends SubsystemBase {
       timerForLimelightBlink.stop();
       timerForLimelightBlink.reset();
     }
-
     
     //Method to prevent the intake motor from being forced
     if (velocity<-0.4 && getInfraredSensorValue() == true){
       timerForIntaking.start();
     }
-
     if (timerForIntaking.get() >= 0.5){  
       intakeMotor.set(0);
       timerForIntaking.stop();

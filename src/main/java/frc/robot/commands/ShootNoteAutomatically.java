@@ -23,7 +23,7 @@ public class ShootNoteAutomatically extends Command {
     addRequirements(s_shooter);
   }
 
-private double getTemporizador(){
+  private double getTemporizador(){
     return temporizadorShooter.get();
   }
 
@@ -58,7 +58,6 @@ private double getTemporizador(){
     temporizadorShooter.reset();
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
