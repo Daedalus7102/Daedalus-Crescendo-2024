@@ -97,8 +97,8 @@ public class Constants {
         public static final double floorGoalPosition = 18; //1
         public static final double ampGoalPosition = 128; //2
         public static final double shooterGoalPosition = 180.5; //3
-        public static final double Intake_HighkP = 0.009;
-        public static final double Intake_LowkP = 0.004;
+        public static final double Intake_HighkP = 0.005;
+        public static final double Intake_LowkP = 0.003;
         public static final double Intake_kI = 0;
         public static final double Intake_kD = 0;
         public static final double intakeOffset = -45.87890625;
