@@ -94,7 +94,7 @@ public class Intake extends SubsystemBase {
         goal = IntakeConstants.floorGoalPosition;
         goalPosition = "Floor";
 
-        pivotPID.setP(0.005);
+        pivotPID.setP(0.007);
         PIDvalue = pivotPID.calculate(getIntakeEncoderPosition(), goal);
         PIDvalue = desaturatePIDValue(PIDvalue);
         pivotMotor.set(PIDvalue);
@@ -103,7 +103,7 @@ public class Intake extends SubsystemBase {
         goal = IntakeConstants.ampGoalPosition;
         goalPosition = "Amp";
 
-        pivotPID.setP(0.005);
+        pivotPID.setP(0.007);
         PIDvalue = pivotPID.calculate(getIntakeEncoderPosition(), goal);
         PIDvalue = desaturatePIDValue(PIDvalue);
         pivotMotor.set(PIDvalue);
@@ -112,7 +112,7 @@ public class Intake extends SubsystemBase {
         goal = IntakeConstants.shooterGoalPosition;
         goalPosition = "Shooter";
 
-        pivotPID.setP(0.005);
+        pivotPID.setP(0.007);
         PIDvalue = pivotPID.calculate(getIntakeEncoderPosition(), goal);
         PIDvalue = desaturatePIDValue(PIDvalue);
         pivotMotor.set(PIDvalue); 
@@ -123,13 +123,13 @@ public class Intake extends SubsystemBase {
       //Settings for security method on the PID value (When the error lowers to a determined number, the PID changes to a lower value)
       switch (position) {
         case 1:
-          pivotPID.setP(0.003);
+          pivotPID.setP(0.007);
           break;
         case 2:
-          pivotPID.setP(0.0003);
+          pivotPID.setP(0.007);
           break;
         case 3:
-          pivotPID.setP(IntakeConstants.Intake_LowkP);
+          pivotPID.setP(0.007);
           break;
       }
     }

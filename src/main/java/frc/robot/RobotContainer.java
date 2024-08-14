@@ -7,6 +7,7 @@ package frc.robot;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
+import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -35,8 +36,8 @@ public class RobotContainer {
   private static final Climber climber = new Climber();
   private static final Shooter shooter = new Shooter();
 
-  private static final PS5Controller driveControl = new PS5Controller(0);
-  public static final PS5Controller mecanismsControl = new PS5Controller(1);
+  private static final PS4Controller driveControl = new PS4Controller(0);
+  public static final PS4Controller mecanismsControl = new PS4Controller(1);
 
   private final SendableChooser<Command> autoChooser;
 
@@ -66,7 +67,7 @@ public class RobotContainer {
     //Chassi driver controls
     new JoystickButton(driveControl, Constants.IOConstants.buttonTriangle).whileTrue(new RunCommand(chasis::zeroHeading));
     new JoystickButton(driveControl, Constants.IOConstants.triggerRight).whileTrue(new PivotIntakeAutomatically(intake, 1)); //Floor
-    new JoystickButton(driveControl, Constants.IOConstants.triggerLeft).whileFalse(new PivotIntakeAutomatically(intake, 3)); //Shooter
+    new JoystickButton(driveControl, Constants.IOConstants.triggerRight).whileFalse(new PivotIntakeAutomatically(intake, 3)); //Shooter
     new JoystickButton(driveControl, Constants.IOConstants.buttonCross).whileTrue(new ShootingAimAutomatically(chasis, shooter, intake));
 
     //Mechanisms driver controls

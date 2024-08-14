@@ -38,10 +38,10 @@ public class ShootNoteAutomatically extends Command {
       temporizadorShooter.start();
     }
     else if (getTemporizador() <= 0.7){
-    s_shooter.shooter(shooter_velocity);
+      s_shooter.shooter(shooter_velocity);
     }
-    else if (getTemporizador() >= 0.4 & getTemporizador()<=0.7){
-        s_intake.intakeRollers(intake_velocity);
+    if (getTemporizador() >= 0.4 & getTemporizador() <= 0.6){
+      s_intake.intakeRollers(intake_velocity);
     }
     else if (getTemporizador() >= 0.7){
       s_intake.intakeRollers(0);
