@@ -25,7 +25,7 @@ import frc.robot.Constants;
 import frc.robot.Constants.ConstantesShuffleboard;
 import frc.robot.Constants.SwerveDriveConstants;
 
-public class Chassi extends SubsystemBase {
+public class Chassis extends SubsystemBase {
 
     private final Field2d field;
         //Specific and fixed values ​​that each module will have, such as the ID of its motors, its PID value, etc. The data is stored in the
@@ -167,7 +167,7 @@ public class Chassi extends SubsystemBase {
         gyro.reset();
     }
 
-    public Chassi(){
+    public Chassis(){
         AutoBuilder.configureHolonomic(
             this::getPose2d, 
             this::setOdoPose, 

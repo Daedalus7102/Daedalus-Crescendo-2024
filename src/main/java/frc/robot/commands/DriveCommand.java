@@ -5,15 +5,15 @@ import java.util.function.Supplier;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.IOConstants;
 import frc.robot.Constants.SwerveDriveConstants;
-import frc.robot.subsystems.SwerveDrive.Chassi;
+import frc.robot.subsystems.SwerveDrive.Chassis;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 
 public class DriveCommand extends Command{
-    Chassi chassi;
+    Chassis chassi;
     Supplier<Double> xSpeed, ySpeed, zSpeed;
     private final SlewRateLimiter xLimiter, yLimiter, zLimiter;
 
-    public DriveCommand(Chassi chassi, Supplier<Double> xSpeed, Supplier<Double> ySpeed, Supplier<Double> zSpeed){
+    public DriveCommand(Chassis chassi, Supplier<Double> xSpeed, Supplier<Double> ySpeed, Supplier<Double> zSpeed){
         addRequirements(chassi);
         this.chassi = chassi;
 

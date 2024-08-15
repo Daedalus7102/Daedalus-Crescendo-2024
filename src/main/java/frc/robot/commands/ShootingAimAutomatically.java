@@ -12,21 +12,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.SwerveDrive.Chassi;
+import frc.robot.subsystems.SwerveDrive.Chassis;
 import frc.robot.Constants.ConstantsShooter;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.VisionConstants;
 
 public class ShootingAimAutomatically extends Command {
 
-  private final Chassi s_chasis;
+  private final Chassis s_chasis;
   private final Shooter s_shooter;
   private final Intake s_intake;
   private Timer shooterTimmer = new Timer();
   boolean readyForShoot = false;
 
 
-  public ShootingAimAutomatically(Chassi s_chasis, Shooter s_shooter, Intake s_intake) {
+  public ShootingAimAutomatically(Chassis s_chasis, Shooter s_shooter, Intake s_intake) {
     this.s_chasis = s_chasis;
     this.s_shooter = s_shooter;
     this.s_intake = s_intake;

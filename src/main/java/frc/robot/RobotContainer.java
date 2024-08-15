@@ -24,14 +24,14 @@ import frc.robot.commands.MoveClimber;
 import frc.robot.commands.PivotIntakeAutomatically;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.SwerveDrive.Chassi;
+import frc.robot.subsystems.SwerveDrive.Chassis;
 import frc.robot.subsystems.Climber;
 import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.ConstantsShooter;
 import frc.robot.Constants.IntakeConstants;
 
 public class RobotContainer {
-  private static final Chassi chasis = new Chassi();
+  private static final Chassis chasis = new Chassis();
   private static final Intake intake = new Intake();
   private static final Climber climber = new Climber();
   private static final Shooter shooter = new Shooter();
@@ -64,7 +64,7 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    //Chassi driver controls
+    //Chassis driver controls
     new JoystickButton(driveControl, Constants.IOConstants.buttonTriangle).whileTrue(new RunCommand(chasis::zeroHeading));
     new JoystickButton(driveControl, Constants.IOConstants.triggerRight).whileTrue(new PivotIntakeAutomatically(intake, 1)); //Floor
     new JoystickButton(driveControl, Constants.IOConstants.triggerRight).whileFalse(new PivotIntakeAutomatically(intake, 3)); //Shooter
@@ -92,7 +92,7 @@ public class RobotContainer {
     return autoChooser.getSelected();
   }
 
-  public Chassi getChasisSubsystem() {
+  public Chassis getChasisSubsystem() {
     return chasis;
   }
 
