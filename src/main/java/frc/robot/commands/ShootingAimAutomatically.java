@@ -85,7 +85,7 @@ public class ShootingAimAutomatically extends Command {
     if(found == 1){
         double xSpeed = calibrateX(x);
         double ySpeed = calibrateY(y);
-        s_chasis.setFieldOrientedSpeed(-ySpeed, 0, xSpeed);
+        s_chasis.setFieldOrientedSpeed(-ySpeed, 0, -xSpeed);
 
         if(Math.abs(x - VisionConstants.targetTXAutoAimSpeaker) <= 5
         && Math.abs(y - VisionConstants.targetTYAutoAimSpeaker) <= 1 

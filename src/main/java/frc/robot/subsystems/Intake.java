@@ -20,8 +20,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
 public class Intake extends SubsystemBase {  
-  private final CANSparkMax intakeMotor = new CANSparkMax(IntakeConstants.pivotMotorID, MotorType.kBrushless);//9
-  private final CANSparkMax pivotMotor = new CANSparkMax(IntakeConstants.intakeMotorID, MotorType.kBrushless);//10
+  private final CANSparkMax pivotMotor = new CANSparkMax(IntakeConstants.pivotMotorID, MotorType.kBrushless);//9
+  private final CANSparkMax intakeMotor = new CANSparkMax(IntakeConstants.intakeMotorID, MotorType.kBrushless);//10
 
   private final DigitalInput infraredSensor =  new DigitalInput(9);
 

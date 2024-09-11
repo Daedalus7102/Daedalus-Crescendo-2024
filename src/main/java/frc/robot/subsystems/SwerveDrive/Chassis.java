@@ -6,6 +6,7 @@ import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -223,18 +224,22 @@ public class Chassis extends SubsystemBase {
         positions[1] = frontRight.getPosition();
         positions[2] = backLeft.getPosition();
         positions[3] = backRight.getPosition();
-
-        odometry.update(getRotation2d(), positions);
-
-        poseEstimator.update(getRotation2d(), positions);
     }
 
     @Override
     //The periodic works to see minimal things within the subsystem (It works even when it is disabled)
     public void periodic() {
+        odometry.update(getRotation2d(), positions);
+        poseEstimator.update(getRotation2d(), positions);
+        
         DataLogManager.start();
         DriverStation.startDataLog(DataLogManager.getLog());
         updateShuffle();
         SmartDashboard.putString("Positions modules", positions.toString());
+
+
+//MegaTag
+        boolean useMegaTag2 = true; //set to false to use MegaTag1
+        boolean doRejectUpdate = false;
     }
 }

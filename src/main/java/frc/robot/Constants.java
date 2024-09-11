@@ -8,26 +8,26 @@ public class Constants {
     
     public static final class SwerveDriveConstants{
         //Front Left Module Information (Used in the "Chassi" class)
-        public static final int driveMotorIDfrontLeft = 4;
-        public static final int turnMotorIDfrontLeft = 6;
+        public static final int driveMotorIDfrontLeft = 3;
+        public static final int turnMotorIDfrontLeft = 1;
         public static final int cancoderIDfrontLeft = 1;
         public static final double FRONT_LEFT_MODULE_STEER_OFFSET = 180;
 
         //Front Right Module Information (Used in the "Chassi" class)
-        public static final int driveMotorIDfrontRight = 8;
-        public static final int turnMotorIDfrontRight = 5;
+        public static final int driveMotorIDfrontRight = 2;
+        public static final int turnMotorIDfrontRight = 7;
         public static final int cancoderIDfrontRight = 2;
         public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = 180;
 
         //Back Left Module Information (Used in the "Chassi" class)
-        public static final int driveMotorIDbackLeft = 2;
-        public static final int turnMotorIDbackLeft = 7;
+        public static final int driveMotorIDbackLeft = 8;
+        public static final int turnMotorIDbackLeft = 5;
         public static final int cancoderIDbackLeft = 3;
         public static final double BACK_LEFT_MODULE_STEER_OFFSET = 180;
 
         //Back Right Module Information (Used in the "Chassi" class)
-        public static final int driveMotorIDbackRight = 3;
-        public static final int turnMotorIDbackRight = 1;
+        public static final int driveMotorIDbackRight = 4;
+        public static final int turnMotorIDbackRight = 6;
         public static final int cancoderIDbackRight = 4;
         public static final double BACK_RIGHT_MODULE_STEER_OFFSET = 180;
 
@@ -85,8 +85,8 @@ public class Constants {
     }
 
     public static final class IntakeConstants{
-        public static final int pivotMotorID = 9;
-        public static final int intakeMotorID = 10;
+        public static final int pivotMotorID = 12;
+        public static final int intakeMotorID = 9;
         public static final int pivotCANcoderID = 5;
 
         public static final double intakePivotMotorVelocity = 0.8;

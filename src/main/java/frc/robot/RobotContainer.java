@@ -8,7 +8,6 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj.PS4Controller;
-import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -31,7 +30,7 @@ import frc.robot.Constants.ConstantsShooter;
 import frc.robot.Constants.IntakeConstants;
 
 public class RobotContainer {
-  private static final Chassis chasis = new Chassis();
+  private static final Chassis chassis = new Chassis();
   private static final Intake intake = new Intake();
   private static final Climber climber = new Climber();
   private static final Shooter shooter = new Shooter();
@@ -46,17 +45,17 @@ public class RobotContainer {
     NamedCommands.registerCommand("SHOOT", new ShootNoteAutomatically(shooter, intake, -ConstantsShooter.shooterMotorVelocity, IntakeConstants.intakeMotorVelocityThrowForShooter).withTimeout(0.8));
     NamedCommands.registerCommand("LOWER_INTAKE", new PivotIntakeAutomatically(intake, 1).withTimeout(1.2));
     NamedCommands.registerCommand("RISE_INTAKE", new PivotIntakeAutomatically(intake, 3));
-    NamedCommands.registerCommand("AIMBOT", new ShootingAimAutomatically(chasis, shooter, intake).withTimeout(4));
+    NamedCommands.registerCommand("AIMBOT", new ShootingAimAutomatically(chassis, shooter, intake).withTimeout(4));
     
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Mode", autoChooser);
 
-    chasis.setDefaultCommand(
+    chassis.setDefaultCommand(
       new DriveCommand(
-        chasis,
+        chassis,
         () -> (-driveControl.getRawAxis(1)),
         () -> (driveControl.getRawAxis(0)),
-        () -> (driveControl.getRawAxis(2))
+        () -> (-driveControl.getRawAxis(2))
       )
     );
 
@@ -65,10 +64,10 @@ public class RobotContainer {
 
   private void configureBindings() {
     //Chassis driver controls
-    new JoystickButton(driveControl, Constants.IOConstants.buttonTriangle).whileTrue(new RunCommand(chasis::zeroHeading));
+    new JoystickButton(driveControl, Constants.IOConstants.buttonTriangle).whileTrue(new RunCommand(chassis::zeroHeading));
     new JoystickButton(driveControl, Constants.IOConstants.triggerRight).whileTrue(new PivotIntakeAutomatically(intake, 1)); //Floor
     new JoystickButton(driveControl, Constants.IOConstants.triggerRight).whileFalse(new PivotIntakeAutomatically(intake, 3)); //Shooter
-    new JoystickButton(driveControl, Constants.IOConstants.buttonCross).whileTrue(new ShootingAimAutomatically(chasis, shooter, intake));
+    new JoystickButton(driveControl, Constants.IOConstants.buttonCross).whileTrue(new ShootingAimAutomatically(chassis, shooter, intake));
 
     //Mechanisms driver controls
     new JoystickButton(mecanismsControl, Constants.IOConstants.triggerRight).whileTrue(new SpinIntakeRollersManual(intake, IntakeConstants.intakeMotorVelocityThrow));
@@ -93,7 +92,7 @@ public class RobotContainer {
   }
 
   public Chassis getChasisSubsystem() {
-    return chasis;
+    return chassis;
   }
 
   public Intake getIntakeSubsystem() {

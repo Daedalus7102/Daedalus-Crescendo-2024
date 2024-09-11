@@ -13,7 +13,7 @@ public class ShootNoteAutomatically extends Command {
   private final Intake s_intake;
   private final double shooter_velocity;
   private final double intake_velocity;
-  private Timer temporizadorShooter = new Timer();
+  private Timer shooterTimer = new Timer();
 
   public ShootNoteAutomatically(Shooter s_shooter, Intake s_intake, double shooter_velocity, double intake_velocity) {
     this.s_shooter = s_shooter;
@@ -24,7 +24,7 @@ public class ShootNoteAutomatically extends Command {
   }
 
   private double getTemporizador(){
-    return temporizadorShooter.get();
+    return shooterTimer.get();
   }
 
   // Called when the command is initially scheduled.
@@ -35,7 +35,7 @@ public class ShootNoteAutomatically extends Command {
   @Override
   public void execute() {
     if (getTemporizador() == 0){
-      temporizadorShooter.start();
+      shooterTimer.start();
     }
     else if (getTemporizador() <= 0.7){
       s_shooter.shooter(shooter_velocity);
@@ -54,8 +54,8 @@ public class ShootNoteAutomatically extends Command {
   public void end(boolean interrupted) {
     s_shooter.shooter(0);
     s_intake.intakeRollers(0);
-    temporizadorShooter.stop();
-    temporizadorShooter.reset();
+    shooterTimer.stop();
+    shooterTimer.reset();
   }
 
   @Override
